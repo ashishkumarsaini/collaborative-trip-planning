@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { TRIP_NAME_MIN_LENGTH, TRIP_NAME_MAX_LENGTH } from '../validators';
+import { TRIP_NAME_MIN_LENGTH, TRIP_NAME_MAX_LENGTH } from '../validators/index.js';
 
 const tripSchema = new mongoose.Schema({
   name: {

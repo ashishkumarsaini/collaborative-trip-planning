@@ -11,7 +11,7 @@ app.use(cookieParser());
 app.use(cors());
 
 // routes
-app.get('/health-check', (_req, res) => {
+app.get('/api/health-check', (_req, res) => {
     res.status(200).json({
         message: "✅ API IS WORKING"
     });

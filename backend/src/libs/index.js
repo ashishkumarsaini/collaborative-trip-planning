@@ -1,4 +1,4 @@
-export { compareBcrypHashedData, getBcryptHashed } from './bcrypt.js';
+export { compareBcryptHashedData, getBcryptHashed } from './bcrypt.js';
 export { generateJsonWebToken, extractJsonWebTokenPayload } from './jwt.js';
 export {
   APP_PORT,

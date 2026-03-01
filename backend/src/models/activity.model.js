@@ -4,7 +4,7 @@ import {
   ACTIVITY_NAME_MAX_LENGTH,
   ACTIVITY_DESCRIPTION_MIN_LENGTH,
   ACTIVITY_DESCRIPTION_MAX_LENGTH
-} from "../validators";
+} from "../validators/index.js";
 
 const activitySchema = new mongoose.Schema({
   name: {

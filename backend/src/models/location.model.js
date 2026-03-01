@@ -4,7 +4,7 @@ import {
   LOCATION_ADDRESS_NAME_MIN_LIMIT,
   LOCATION_NAME_MAX_LIMIT,
   LOCATION_NAME_MIN_LIMIT
-} from "../validators";
+} from "../validators/index.js";
 
 const locationSchema = new mongoose.Schema({
   city: {

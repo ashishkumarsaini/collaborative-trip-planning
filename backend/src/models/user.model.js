@@ -6,7 +6,7 @@ import {
   LAST_NAME_MIN_LIMIT,
   USER_ROLE,
   AVAILABLE_USER_ROLES
-} from '../validators';
+} from '../validators/index.js';
 import {
   ACCESS_TOKEN_SECRET,
   ACCESS_TOKEN_SECRET_EXPIRY,
