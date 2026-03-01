@@ -14,10 +14,10 @@ export {
   loginUserValidator
 } from './user.validators.js';
 export {
-  LOCATION_NAME_MAX_LIMIT,
-  LOCATION_NAME_MIN_LIMIT,
   LOCATION_ADDRESS_NAME_MIN_LIMIT,
-  LOCATION_ADDRESS_NAME_MAX_LIMIT
+  LOCATION_ADDRESS_NAME_MAX_LIMIT,
+  locationValidators,
+  locationIdValidator
 } from './location.validators.js';
 export {
   TRIP_NAME_MAX_LENGTH,
