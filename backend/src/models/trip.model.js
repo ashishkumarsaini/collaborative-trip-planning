@@ -37,4 +37,4 @@ const tripSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-export const trip = mongoose.model('Trip', tripSchema);
+export const Trip = mongoose.model('Trip', tripSchema);

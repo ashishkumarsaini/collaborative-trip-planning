@@ -14,7 +14,7 @@ export default defineConfig([
             "comma-dangle": ["error"],
             "semi": ["error", "always"],
             "no-multiple-empty-lines": ["error", { "max": 1 }],
-            "max-len": ["error", { "code": 100 }],
+            "max-len": ["error", { "code": 120 }],
             "eol-last": ["error", "always"]
         }
     }

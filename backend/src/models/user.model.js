@@ -3,18 +3,18 @@ import {
   FIRST_NAME_MAX_LIMIT,
   FIRST_NAME_MIN_LIMIT,
   LAST_NAME_MAX_LIMIT,
-  LAST_NAME_MIN_LIMIT,
   USER_ROLE,
   AVAILABLE_USER_ROLES
 } from '../validators/index.js';
 import {
   ACCESS_TOKEN_SECRET,
   ACCESS_TOKEN_SECRET_EXPIRY,
+  compareBcryptHashedData,
   generateJsonWebToken,
   getBcryptHashed,
   REFRESH_TOKEN_SECRET,
   REFRESH_TOKEN_SECRET_EXPIRY
-} from '../libs';
+} from '../libs/index.js';
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -27,7 +27,6 @@ const userSchema = new mongoose.Schema({
   lastName: {
     type: String,
     trim: true,
-    minlength: LAST_NAME_MIN_LIMIT,
     maxlength: LAST_NAME_MAX_LIMIT
   },
   email: {
@@ -45,7 +44,7 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: AVAILABLE_USER_ROLES,
-    default: USER_ROLE.USER
+    default: USER_ROLE.user
   },
   refreshToken: {
     type: String
@@ -88,4 +87,22 @@ userSchema.methods.generateRefreshToken = function () {
   );
 };
 
-export const user = mongoose.model('User', userSchema);
+userSchema.methods.isValidPassword = async function (inputPassword) {
+  const isValid = await compareBcryptHashedData(inputPassword, this.password);
+
+  return isValid;
+};
+
+userSchema.methods.toJSON = function () {
+  const user = this;
+
+  const userObject = user.toObject();
+
+  delete userObject.password;
+  delete userObject.refreshToken;
+  delete userObject.__v;
+
+  return userObject;
+};
+
+export const User = mongoose.model('User', userSchema);

@@ -8,9 +8,10 @@ export {
   FIRST_NAME_MAX_LIMIT,
   FIRST_NAME_MIN_LIMIT,
   LAST_NAME_MAX_LIMIT,
-  LAST_NAME_MIN_LIMIT,
   USER_ROLE,
-  AVAILABLE_USER_ROLES
+  AVAILABLE_USER_ROLES,
+  registerUserValidator,
+  loginUserValidator
 } from './user.validators.js';
 export {
   LOCATION_NAME_MAX_LIMIT,

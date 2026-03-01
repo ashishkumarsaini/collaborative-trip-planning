@@ -55,4 +55,4 @@ activitySchema.pre('save', function (next) {
   next();
 });
 
-export const activity = mongoose.model('Activity', activitySchema);
+export const Activity = mongoose.model('Activity', activitySchema);
