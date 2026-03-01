@@ -1,20 +1,22 @@
 import mongoose from 'mongoose';
-import { tryCatchWrapper } from '../utils/index.js';
+import { MONGODB_URI } from '../libs';
 
 export const connectDatabase = async () => {
-    tryCatchWrapper("connectDatabase", async () => {
-        const mongooseURL = process.env.MONGODB_URI || '';
-
-        if (!mongooseURL) {
-            throw new Error(`🚫 mongodb connection url is invalid. MONGODB_URI:${mongooseURL}`);
+    try {
+        if (!MONGODB_URI) {
+            throw new Error(`Mongodb connection url is invalid.`);
         }
 
-        await mongoose.connect(mongooseURL)
+        await mongoose.connect(MONGODB_URI)
             .then(() => {
-                console.log(`✅ Mongoose database connected successfully. MONGODB_URI:${mongooseURL}`);
+                console.log(
+                    `✅ Mongoose database connected successfully.`
+                );
             })
             .catch(() => {
-                console.log(`🚫 Error in connecting database. MONGODB_URI:${mongooseURL}`);
+                console.log(`🚫 Error in connecting database.`);
             });
-    });
+    } catch (error) {
+        console.log(`🚫 Error in connecting database. Error: ${error}`);
+    }
 };
