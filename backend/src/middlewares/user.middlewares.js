@@ -1,5 +1,5 @@
-const { asyncHandler, APIError, RESPONSE_STATUS_CODE } = require("../utils/index.js");
-const { USER_ROLE } = require("../validators/user.validators.js");
+import { asyncHandler, APIError, RESPONSE_STATUS_CODE } from '../utils/index.js';
+import { USER_ROLE } from "../validators/user.validators.js";
 
 export const verifyAdmin = asyncHandler(async (req, _res, next) => {
   const user = req.user; // verifyJWT should be execute before

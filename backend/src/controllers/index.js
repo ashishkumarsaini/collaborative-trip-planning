@@ -1,3 +1,9 @@
+export {
+  createActivity,
+  getActivity,
+  updateActivity,
+  deleteActivity
+} from './activity.controllers.js';
 export { registerUser, loginUser, logoutUser } from './auth.controllers.js';
 export {
   createLocation,

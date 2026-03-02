@@ -3,8 +3,6 @@ export const asyncHandler = (requestHandler) => {
     Promise.resolve(requestHandler(req, res, next)).catch((error) => {
       const { statusCode, data, success, errors, message, stack } = error;
 
-      console.log(typeof statusCode, statusCode);
-
       res.status(400).json({
         statusCode,
         data,

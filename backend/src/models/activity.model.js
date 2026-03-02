@@ -30,8 +30,7 @@ const activitySchema = new mongoose.Schema({
     required: true
   },
   endDate: {
-    type: Date,
-    required: true
+    type: Date
   },
   location: {
     type: mongoose.Schema.Types.ObjectId,
@@ -45,7 +44,7 @@ const activitySchema = new mongoose.Schema({
 });
 
 activitySchema.pre('save', function (next) {
-  if (this.isModified(this.startDate) || this.isModified(this.numberOfDays)) {
+  if (this.isModified('startDate') || this.isModified('numberOfDays')) {
     const newDate = new Date(this.startDate);
     newDate.setDate(newDate.getDate() + this.numberOfDays);
     this.endDate = newDate;
