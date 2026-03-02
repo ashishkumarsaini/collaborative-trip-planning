@@ -4,17 +4,18 @@ import { validateMiddleware } from '../middlewares/validate.middlewares.js';
 import {
   createLocation,
   deleteLocation,
-  getAllLocations,
   getLocation,
   updateLocation
 } from '../controllers/location.controllers.js';
 
-const router = express.Router();
+const locationRouter = express.Router();
 
-router.route('/add').post(locationValidators, validateMiddleware, createLocation);
-router.route('/:locationId').get(locationIdValidator, validateMiddleware, getLocation);
-router.route('/all').get(getAllLocations);
-router.route('/update/:locationId').put(locationIdValidator, locationValidators, validateMiddleware, updateLocation);
-router.route('/delete/:locationId').delete(locationIdValidator, validateMiddleware, deleteLocation);
+locationRouter.route('/add').post(locationValidators, validateMiddleware, createLocation);
+locationRouter.route('/:locationId').get(locationIdValidator, validateMiddleware, getLocation);
+locationRouter
+  .route('/update/:locationId')
+  .put(locationIdValidator, locationValidators, validateMiddleware, updateLocation);
+locationRouter.route('/delete/:locationId').delete(locationIdValidator, validateMiddleware, deleteLocation);
+// locationRouter.route('/by-country').get(getAllLocations);
 
-export { router };
+export { locationRouter };

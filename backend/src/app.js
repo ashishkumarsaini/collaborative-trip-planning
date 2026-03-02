@@ -2,6 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import { authRouter } from './routes/index.js';
+import { locationRouter } from './routes/location.routes.js';
 
 const app = express();
 
@@ -13,6 +14,7 @@ app.use(cors());
 
 // routes
 app.use('/api/auth', authRouter);
+app.use('/api/location', locationRouter);
 app.get('/api/health-check', (_req, res) => {
     res.status(200).json({
         message: "✅ API IS WORKING"

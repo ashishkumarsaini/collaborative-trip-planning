@@ -11,16 +11,19 @@ const locationSchema = new mongoose.Schema({
     trim: true
   },
   address: {
+    type: String,
     required: true,
     minlength: LOCATION_ADDRESS_NAME_MIN_LIMIT,
     maxlength: LOCATION_ADDRESS_NAME_MAX_LIMIT,
     trim: true
   },
   state: {
+    type: String,
     required: true,
     trim: true
   },
   country: {
+    type: String,
     required: true,
     trim: true
   }
