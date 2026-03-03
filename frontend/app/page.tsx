@@ -1,5 +1,13 @@
-import { ComponentExample } from "@/components/component-example";
+import { ExploreSection } from "@/components/explore-section";
+import { FeaturesSection } from "@/components/features-section";
+import { HeroSection } from "@/components/hero-section";
 
 export default function Page() {
-return <ComponentExample />;
+  return (
+    <div className="min-h-[1000px]">
+      <HeroSection />
+      <ExploreSection />
+      <FeaturesSection />
+    </div>
+  );
 }

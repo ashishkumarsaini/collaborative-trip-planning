@@ -138,7 +138,7 @@ const frameworks = [
   "Astro",
 ] as const
 
-function FormExample() {
+export function FormExample() {
   const [notifications, setNotifications] = React.useState({
     email: true,
     sms: false,
@@ -148,7 +148,7 @@ function FormExample() {
 
   return (
     <Example title="Form">
-      <Card className="w-full max-w-md">
+      <Card className="w-full">
         <CardHeader>
           <CardTitle>User Information</CardTitle>
           <CardDescription>Please fill in your details below</CardDescription>

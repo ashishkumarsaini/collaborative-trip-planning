@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { Noto_Sans } from 'next/font/google';
 import "./globals.css";
+import { Header } from "@/components/header";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+// Configure the font
+const notoSans = Noto_Sans({
+  subsets: ['latin'],
+  weight: ['400', '600', '700', '800'],
+  variable: '--font-noto',
 });
 
 export const metadata: Metadata = {
@@ -25,11 +22,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={notoSans.variable}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${notoSans.variable} antialiased dark`}
       >
-        {children}
+        <Header />
+        <main className="max-w-[1250px] m-auto">
+          <div className="border-l border-r border-dashed mt-mobile-header md:mt-desktop-header px-5">
+            <div className="pb-[1000px]">
+              {children}
+            </div>
+          </div>
+        </main>
       </body>
     </html>
   );
