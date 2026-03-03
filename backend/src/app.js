@@ -4,7 +4,8 @@ import cors from 'cors';
 import {
     authRouter,
     locationRouter,
-    activityRouter
+    activityRouter,
+    tripRouter
 } from './routes/index.js';
 
 const app = express();
@@ -19,6 +20,7 @@ app.use(cors());
 app.use('/api/auth', authRouter);
 app.use('/api/location', locationRouter);
 app.use('/api/activity', activityRouter);
+app.use('/api/trip', tripRouter);
 app.get('/api/health-check', (_req, res) => {
     res.status(200).json({
         message: "✅ API IS WORKING"

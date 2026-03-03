@@ -12,3 +12,9 @@ export {
   updateLocation,
   deleteLocation
 } from './location.controllers.js';
+export {
+  createTrip,
+  updateTrip,
+  deleteTrip,
+  getTrip
+} from './trip.controllers.js';
