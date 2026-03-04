@@ -7,12 +7,12 @@ export const FeaturesSection = () => {
     <section className="py-30">
       <div className="grid grid-cols-12">
         <div className="col-start-1 col-end-7 relative">
-          <div className="rounded bg-white p-[10px] absolute top-[-20px] right-[-20px] h-[200px] w-[150px] z-10">
-            <div className="h-[150px] w-[130px] bg-[url(https://images.unsplash.com/photo-1616013208128-e5193b4c575e?w=500)] bg-center bg-cover" />
+          <div className="rounded bg-white p-[10px] absolute top-[-20px] right-[-20px] h-[250px] w-[200px] z-10">
+            <div className="h-[200px] w-[180px] bg-[url(https://images.unsplash.com/photo-1616013208128-e5193b4c575e?w=500)] bg-center bg-cover" />
             <Text className="text-black p-1.5" size={TextSize.xs}>Beach Vibes!</Text>
           </div>
-          <div className="aspect-square rounded-md">
-            <Image alt="features-image" src="https://images.unsplash.com/photo-1616013208128-e5193b4c575e" fill />
+          <div className="aspect-square">
+            <Image alt="features-image" src="https://images.unsplash.com/photo-1616013208128-e5193b4c575e" fill className="rounded-md" />
           </div>
         </div>
         <div className="col-start-8 col-end-13">
