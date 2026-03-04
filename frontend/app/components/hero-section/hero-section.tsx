@@ -6,7 +6,7 @@ import { HeroTripSearch } from "./hero-trip-search"
 
 export const HeroSection = () => {
   return (
-    <section className="py-30">
+    <section className="py-20 lg:py-30">
       <div className="flex flex-col items-center justify-center gap-10">
         <div className="flex flex-col items-center gap-5">
           <Badge variant="default">Get 20% discount today!</Badge>
@@ -14,7 +14,7 @@ export const HeroSection = () => {
             Discover the magic in every destination with us!
           </Heading>
         </div>
-        <Text>Enjoy exclusive offers and best prices for satisfying travel packages.</Text>
+        <Text className="text-center">Enjoy exclusive offers and best prices for satisfying travel packages.</Text>
         <HeroTripSearch />
       </div>
     </section>

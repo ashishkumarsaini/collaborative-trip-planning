@@ -8,8 +8,8 @@ export const HeroTripSearch = () => {
   return (
     <div className="w-full rounded-sm border border-dashed">
       <form>
-        <div className="grid grid-col-6 lg:grid-cols-12 gap-4">
-          <div className="col-start-1 col-span-3 px-3 gap-2 py-5 border-r border-dashed">
+        <div className="grid grid-col-3 md:grid-col-6 lg:grid-cols-12 gap lg:gap-4">
+          <div className="col-span-3 px-3 gap-2 py-5 lg:border-r border-dashed">
             <Field>
               <FieldLabel htmlFor="destination">
                 <MapPin className="fill-primary" />
@@ -30,7 +30,7 @@ export const HeroTripSearch = () => {
               </Select>
             </Field>
           </div>
-          <div className="col-start-4 col-span-3 px-3 gap-2 py-5 border-r border-dashed">
+          <div className="col-span-3 px-3 gap-2 py-5 lg:border-r border-dashed">
             <Field>
               <FieldLabel htmlFor="destination">
                 <MapPin className="fill-primary" />
@@ -51,7 +51,7 @@ export const HeroTripSearch = () => {
               </Select>
             </Field>
           </div>
-          <div className="col-start-7 col-span-3 px-3 gap-2 py-5 border-r border-dashed">
+          <div className="col-span-3 px-3 gap-2 py-5 lg:border-r border-dashed">
             <Field>
               <FieldLabel htmlFor="destination">
                 <MapPin className="fill-primary" />
@@ -72,7 +72,7 @@ export const HeroTripSearch = () => {
               </Select>
             </Field>
           </div>
-          <div className="col-start-10 col-span-3 px-5 gap-2 py-5 flex items-center justify-center">
+          <div className=" col-span-3 px-5 gap-2 py-5 flex items-center justify-center">
             <Button type="submit" className="w-full" size="lg">
               <Search />
               Search

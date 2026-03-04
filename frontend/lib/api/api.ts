@@ -42,6 +42,7 @@ const fetchRequest = async <T>(method: HttpMethod, path: string, options: Reques
       'Content-Type': 'application/json',
       ...(headers || {}),
     },
+    credentials: 'include'
   };
 
   const data = await fetch(path, fetchOptions);

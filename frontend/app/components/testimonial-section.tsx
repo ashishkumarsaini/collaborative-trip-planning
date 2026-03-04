@@ -7,7 +7,7 @@ import { Quote } from "lucide-react";
 
 export const TestimonialSection = () => {
   return (
-    <section className="py-30">
+    <section className="py-20 lg:py-30">
       <div className="flex flex-col items-center justify-center gap-5">
         <Badge className="bg-primary">Testimonials</Badge>
         <Heading level={HeadingLevel.h2} size={HeadingSize.xxl} className="capitalize text-center max-w-3xl lg:leading-20">
@@ -16,7 +16,7 @@ export const TestimonialSection = () => {
         <Text>
           Start planning your next adventure!
         </Text>
-        <div className="mt-5 grid grid-cols-3 gap-6 w-full">
+        <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           {testimonialsData.testimonials.map((testimonial) => (
             <Card className="p-5 rounded justify-between" key={testimonial.id}>
               <CardHeader>
@@ -33,7 +33,7 @@ export const TestimonialSection = () => {
                 </CardDescription>
               </CardHeader>
               <CardFooter>
-                <div className="flex items-start gap-3 items-center">
+                <div className="flex gap-3 items-center">
                   <div>
                     <Avatar>
                       <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>

@@ -16,6 +16,7 @@ import { Controller, useForm } from "react-hook-form";
 import { signUpFormSchema, type SignUpFormSchemaType } from "@/lib/validators";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
+import { registerUser } from "@/lib/services";
 
 export const SignupForm = () => {
   const { control, formState, handleSubmit, reset } = useForm<SignUpFormSchemaType>({
@@ -33,24 +34,24 @@ export const SignupForm = () => {
   async function onSubmit(formData: SignUpFormSchemaType) {
     const { firstName, lastName, email, password, confirmPassword } = formData;
 
-    // const toastPromise = registerUser({
-    //   body: {
-    //     username, email, password, confirmPassword
-    //   }
-    // });
+    const toastPromise = registerUser({
+      body: {
+        firstName, lastName, email, password, confirmPassword
+      }
+    });
 
-    // toast.promise(
-    //   toastPromise,
-    //   {
-    //     loading: "Loading...",
-    //     success: (data) => data.message || 'User registered successfully!',
-    //     error: (data) => data.message || 'Unable to register',
-    //   }
-    // );
+    toast.promise(
+      toastPromise,
+      {
+        loading: "Loading...",
+        success: (data) => data.message || 'User registered successfully!',
+        error: (data) => data.message || 'Unable to register',
+      }
+    );
 
-    // toastPromise.then(() => {
-    //   reset();
-    // });
+    toastPromise.then(() => {
+      reset();
+    });
   }
 
   return (
@@ -128,7 +129,7 @@ export const SignupForm = () => {
         <FieldSeparator>Or continue with</FieldSeparator>
         <Field>
           <FieldDescription className="px-6 text-center">
-            Already have an account? <Link href="/login">SignIn</Link>
+            Already have an account? <Link href="/login">LogIn</Link>
           </FieldDescription>
         </Field>
       </FieldGroup>

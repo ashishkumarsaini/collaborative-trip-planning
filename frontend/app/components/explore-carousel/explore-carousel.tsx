@@ -4,7 +4,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 export const ExploreCarousel = () => {
   return (
     <Carousel>
-      <div className="absolute right-[10px] top-0 flex gap-5">
+      <div className="absolute right-[10px] top-0 flex gap-5 max-md:hidden">
         <CarouselPrevious className="bg-primary relative left-0" />
         <CarouselNext className="bg-primary relative right-0" />
       </div>
