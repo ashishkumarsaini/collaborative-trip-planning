@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans } from 'next/font/google';
 import "./globals.css";
 import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 
 
 // Configure the font
@@ -29,11 +30,10 @@ export default function RootLayout({
         <Header />
         <main className="max-w-[1250px] m-auto">
           <div className="border-l border-r border-dashed mt-mobile-header md:mt-desktop-header px-5">
-            <div className="pb-[1000px]">
-              {children}
-            </div>
+            {children}
           </div>
         </main>
+        <Footer />
       </body>
     </html>
   );

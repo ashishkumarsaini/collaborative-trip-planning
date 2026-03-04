@@ -33,7 +33,7 @@ export const TestimonialSection = () => {
                 </CardDescription>
               </CardHeader>
               <CardFooter>
-                <div className="flex items-start gap-3">
+                <div className="flex items-start gap-3 items-center">
                   <div>
                     <Avatar>
                       <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>

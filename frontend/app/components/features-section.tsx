@@ -29,11 +29,11 @@ export const FeaturesSection = () => {
             </div>
             <div className="flex items-center gap-4 p-5 border border-dotted rounded-md">
               <Stars className="fill-primary" />
-              <Text>Flexible Plans</Text>
+              <Text>Best Choice Destinations</Text>
             </div>
             <div className="flex items-center gap-4 p-5 border border-dotted rounded-md">
               <Stars className="fill-primary" />
-              <Text>Flexible Plans</Text>
+              <Text>Expert Local Guide</Text>
             </div>
           </div>
         </div>

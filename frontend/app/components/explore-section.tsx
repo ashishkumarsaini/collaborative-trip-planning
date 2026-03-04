@@ -1,4 +1,4 @@
-import { ExploreCarousel } from "../explore-carousel"
+import { ExploreCarousel } from "./explore-carousel"
 import { Heading, HeadingLevel, HeadingSize } from "@/components/typography"
 
 export const ExploreSection = () => {
