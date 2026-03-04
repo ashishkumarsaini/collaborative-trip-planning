@@ -1,6 +1,7 @@
-import { ExploreSection } from "@/components/explore-section";
-import { FeaturesSection } from "@/components/features-section";
-import { HeroSection } from "@/components/hero-section";
+import { ExploreSection } from "./components/explore-section";
+import { FeaturesSection } from "./components/features-section";
+import { HeroSection } from "./components/hero-section";
+import { TestimonialSection } from "./components/testimonial-section";
 
 export default function Page() {
   return (
@@ -8,6 +9,7 @@ export default function Page() {
       <HeroSection />
       <ExploreSection />
       <FeaturesSection />
+      <TestimonialSection />
     </div>
   );
 }

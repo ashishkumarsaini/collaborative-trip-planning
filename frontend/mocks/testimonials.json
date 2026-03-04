@@ -1,0 +1,46 @@
+{
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Rahul Sharma",
+      "location": "Delhi, India",
+      "rating": 5,
+      "message": "This trip planner made organizing my Ladakh trip incredibly easy. The day-wise itinerary feature is exactly what I needed."
+    },
+    {
+      "id": 2,
+      "name": "Priya Mehta",
+      "location": "Mumbai, India",
+      "rating": 4,
+      "message": "I love how simple it is to add locations and activities. It helped me plan my entire Europe trip without any stress."
+    },
+    {
+      "id": 3,
+      "name": "Arjun Patel",
+      "location": "Ahmedabad, India",
+      "rating": 5,
+      "message": "The route planning and day organization features are amazing. Everything stays structured and easy to manage."
+    },
+    {
+      "id": 4,
+      "name": "Sneha Kapoor",
+      "location": "Bangalore, India",
+      "rating": 5,
+      "message": "Finally a travel planner that keeps everything in one place. No more scattered notes and documents."
+    },
+    {
+      "id": 5,
+      "name": "Vikram Singh",
+      "location": "Jaipur, India",
+      "rating": 3,
+      "message": "Perfect tool for planning trips with friends. We could easily organize activities for each day."
+    },
+    {
+      "id": 6,
+      "name": "Priya Mehta",
+      "location": "Mumbai, India",
+      "rating": 4,
+      "message": "I love how simple it is to add locations and activities. It helped me plan my entire Europe trip without any stress."
+    }
+  ]
+}

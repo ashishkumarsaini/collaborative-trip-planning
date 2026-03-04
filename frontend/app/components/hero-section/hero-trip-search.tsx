@@ -1,8 +1,8 @@
 import { MapPin, Search } from "lucide-react";
-import { Text } from "../typography";
-import { Field, FieldLabel } from "../ui/field";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { Button } from "../ui/button";
+import { Text } from "@/components/typography";
+import { Field, FieldLabel } from "@/components/ui/field";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
 export const HeroTripSearch = () => {
   return (

@@ -1,10 +1,10 @@
 import Image from "next/image"
-import { Heading, HeadingLevel, HeadingSize, Text, TextSize } from "../typography"
+import { Heading, HeadingLevel, HeadingSize, Text, TextSize } from "@/components/typography"
 import { Stars } from "lucide-react"
 
 export const FeaturesSection = () => {
   return (
-    <div className="py-30">
+    <section className="py-30">
       <div className="grid grid-cols-12">
         <div className="col-start-1 col-end-7 relative">
           <div className="rounded bg-white p-[10px] absolute top-[-20px] right-[-20px] h-[200px] w-[150px] z-10">
@@ -38,6 +38,6 @@ export const FeaturesSection = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

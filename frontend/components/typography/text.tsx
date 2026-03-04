@@ -14,6 +14,7 @@ export enum TextSize {
   md = 'md',
   sm = 'sm',
   xs = 'xs',
+  xxs = 'xxs'
 }
 
 const typographyVariants = cva('font-normal', {
@@ -25,6 +26,7 @@ const typographyVariants = cva('font-normal', {
       [TextSize.md]: 'text-lg lg:text-xl',
       [TextSize.sm]: 'text-md lg:text-lg',
       [TextSize.xs]: 'text-base lg:text-md',
+      [TextSize.xxs]: 'text-xs lg:text-sm',
     }
   },
   defaultVariants: {

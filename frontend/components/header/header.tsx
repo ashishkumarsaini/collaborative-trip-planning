@@ -9,7 +9,7 @@ export const Header = () => {
           <div className="flex flex-col">
             <div className="flex gap-1">
               <Mountain className="fill-primary" />
-              <p className="font-bold">DesiBee</p>
+              <p className="font-bold">DesiBees</p>
             </div>
           </div>
           <div>

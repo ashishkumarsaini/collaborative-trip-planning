@@ -1,12 +1,12 @@
-import { Heading, HeadingSize, Text } from "../typography"
-import { Badge } from "../ui/badge"
+import { Heading, HeadingSize, Text } from "@/components/typography"
+import { Badge } from "@/components/ui/badge"
 import { HeroTripSearch } from "./hero-trip-search"
 
 // <div className="bg-[url(https://images.unsplash.com/photo-1486046866764-e426b5b93d98)] bg-cover h-screen mask-b-from-50% mask-b-to-90%">
 
 export const HeroSection = () => {
   return (
-    <div className="py-30">
+    <section className="py-30">
       <div className="flex flex-col items-center justify-center gap-10">
         <div className="flex flex-col items-center gap-5">
           <Badge variant="default">Get 20% discount today!</Badge>
@@ -17,6 +17,6 @@ export const HeroSection = () => {
         <Text>Enjoy exclusive offers and best prices for satisfying travel packages.</Text>
         <HeroTripSearch />
       </div>
-    </div>
+    </section>
   )
 }
