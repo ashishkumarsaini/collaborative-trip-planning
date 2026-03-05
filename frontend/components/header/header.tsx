@@ -17,10 +17,12 @@ export const Header = () => {
           </div>
           <div>
             <div className="flex">
-              <Button size="lg" variant="ghost">
-                <UserCircle className="fill-primary" />
-                <p>Login</p>
-              </Button>
+              <Link href='/login'>
+                <Button variant="link" className="flex gap-2">
+                  <UserCircle />
+                  <p>Login</p>
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,0 +1,1 @@
+export { CustomCarousel as Carousel } from './carousel';

@@ -72,7 +72,14 @@ export const getTrip = asyncHandler(async (req, res) => {
     throw new APIError(RESPONSE_STATUS_CODE.badRequest, "Invalid Activity Id!");
   }
 
-  const trip = await Trip.findById(tripId);
+  const trip = await Trip.findById(tripId)
+    .populate({
+      path: 'activities',
+      model: 'Activity',
+      populate: [
+        { path: 'location', model: 'Location' }
+      ]
+    });
 
   return res
     .status(RESPONSE_STATUS_CODE.ok)
