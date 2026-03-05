@@ -2,6 +2,7 @@ import { TripCard } from '@/components/trip-card';
 import { Carousel } from '@/components/carousel';
 import { Heading, HeadingLevel, HeadingSize } from "@/components/typography";
 import { Trip } from '@/lib/types';
+import { ReactNode } from 'react';
 
 const data: Trip[] = [{
   _id: "69a673cdd94a9921a196c305",
@@ -66,9 +67,9 @@ const data: Trip[] = [{
 ]
 
 export const ExploreSection = () => {
-  const renderSlide = (item: Trip) => {
+  const renderSlide = (item: unknown): ReactNode => {
     return (
-      <TripCard trip={item} />
+      <TripCard trip={item as Trip} />
     )
   };
 
