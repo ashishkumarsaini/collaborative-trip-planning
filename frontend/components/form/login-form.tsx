@@ -14,14 +14,12 @@ import Link from "next/link"
 import { Controller, useForm } from "react-hook-form"
 import { loginFormSchema, LoginFormSchemaType } from "@/lib/validators"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { loginUser } from "@/lib/services";
-import { toast } from "sonner";
 import { useAuth } from "@/lib/context";
 
 export function LoginForm({
   className,
 }: React.ComponentProps<"form">) {
-  const { onUpdateUser } = useAuth();
+  const { onLoginUser } = useAuth();
   const { control, formState, handleSubmit, reset } = useForm<LoginFormSchemaType>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
@@ -34,24 +32,8 @@ export function LoginForm({
   const onSubmit = async (formData: LoginFormSchemaType) => {
     const { email, password } = formData;
 
-    const toastPromise = loginUser({
-      body: { email, password }
-    });
-
-    toast.promise(
-      toastPromise,
-      {
-        loading: "Loading...",
-        error: (data) => data.message || 'Unable to register',
-      }
-    );
-
-    toastPromise.then(({ data }) => {
-      const { accessToken, refreshToken, user } = data;
-      onUpdateUser(user);
-
-      reset();
-    });
+    await onLoginUser(email, password);
+    reset();
   };
 
   return (

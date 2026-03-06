@@ -10,3 +10,7 @@ export const registerUser = (requestOptions: RegisterUserRequestType) => {
 export const loginUser = (requestOptions: LoginUserRequestType) => {
   return api.post<LoginUserResponseType>(buildRequestUrl(`/${AUTH_NAMESPACE}/login`), requestOptions);
 };
+
+export const logoutUser = () => {
+  return api.post<LoginUserResponseType>(buildRequestUrl(`/${AUTH_NAMESPACE}/logout`));
+}

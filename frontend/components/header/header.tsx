@@ -1,8 +1,12 @@
+'use client';
 import { Mountain, UserCircle } from "lucide-react"
 import { Button } from "../ui/button"
 import Link from "next/link"
+import { useAuth } from "@/lib/context";
 
 export const Header = () => {
+  const { user } = useAuth();
+
   return (
     <header>
       <div className="fixed top-0 right-0 left-0 w-full backdrop-blur-2xl border-b border-dashed z-50">
@@ -17,12 +21,21 @@ export const Header = () => {
           </div>
           <div>
             <div className="flex">
-              <Link href='/login'>
-                <Button variant="link" className="flex gap-2">
-                  <UserCircle />
-                  <p>Login</p>
-                </Button>
-              </Link>
+              {!user?._id ? (
+                <Link href='/login'>
+                  <Button variant="link" className="flex gap-2">
+                    <UserCircle />
+                    <p>Login</p>
+                  </Button>
+                </Link>
+              ) : (
+                <Link href='/profile'>
+                  <Button variant="link" className="flex gap-2">
+                    <UserCircle />
+                    <p>{user?.firstName}</p>
+                  </Button>
+                </Link>
+              )}
             </div>
           </div>
         </div>
