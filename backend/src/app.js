@@ -29,3 +29,5 @@ app.get('/api/health-check', (_req, res) => {
         message: "✅ API IS WORKING"
     });
 });
+
+export default app;
