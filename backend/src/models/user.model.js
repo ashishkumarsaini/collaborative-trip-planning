@@ -48,7 +48,11 @@ const userSchema = new mongoose.Schema({
   },
   refreshToken: {
     type: String
-  }
+  },
+  bookedTrips: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Trip'
+  }]
 }, { timestamps: true });
 
 userSchema.pre('save', async function (next) {

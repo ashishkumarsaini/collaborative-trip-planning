@@ -18,5 +18,6 @@ export {
   deleteTrip,
   getTrip,
   getBookedTrips,
-  getCreatedTrips
+  getCreatedTrips,
+  getRecommendationTrips
 } from './trip.controllers.js';

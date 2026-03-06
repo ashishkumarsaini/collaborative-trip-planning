@@ -5,7 +5,8 @@ import {
   deleteTrip,
   getTrip,
   getBookedTrips,
-  getCreatedTrips
+  getCreatedTrips,
+  getRecommendationTrips
 } from '../controllers/index.js';
 import { tripValidator } from '../validators/trip.validators.js';
 import {
@@ -23,8 +24,9 @@ tripRouter
   .route('/update/:tripId')
   .put(verifyJWT, verifyAdminOrSubAdmin, userCreatedTrip, tripValidator, validateMiddleware, updateTrip);
 tripRouter.route('/delete/:tripId').delete(verifyJWT, verifyAdmin, deleteTrip);
-tripRouter.route('/:tripId').get(getTrip);
+tripRouter.route('/recommendation').get(getRecommendationTrips);
 tripRouter.route('/created/all').get(verifyJWT, getCreatedTrips);
 tripRouter.route('/booked/all').get(verifyJWT, getBookedTrips);
+tripRouter.route('/:tripId').get(getTrip);
 
 export { tripRouter };

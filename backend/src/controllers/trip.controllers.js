@@ -77,14 +77,39 @@ export const getTrip = asyncHandler(async (req, res) => {
     .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Trip found!", { trip }));
 });
 
-export const getCreatedTrips = asyncHandler((req, res) => {
-  // const userId = req.user._id;
+export const getRecommendationTrips = asyncHandler(async (_req, res) => {
+  const trips = await Trip.find().sort({ createdAt: 1 }).limit(5);
 
-  res.status(200).json({ message: "Created trips" });
+  return res
+    .status(RESPONSE_STATUS_CODE.ok)
+    .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Recommendation Trips found!", { trips, total: trips.length }));
 });
 
-export const getBookedTrips = asyncHandler((req, res) => {
+export const getCreatedTrips = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
 
-  res.status(200).json({ message: "Booked trips" });
+  const trips = await Trip.find({ createdByUser: userId });
+
+  return res
+    .status(RESPONSE_STATUS_CODE.ok)
+    .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Trips found!", { trips, total: trips.length }));
 });
 
+export const getBookedTrips = asyncHandler(async (req, res) => {
+  const user = req.user;
+
+  if (!user.bookedTrips || !user.bookedTrips.length) {
+    return res
+      .status(RESPONSE_STATUS_CODE.ok)
+      .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Trip found!", { trips: [], total: 0 }));
+  }
+
+  const trips = await Trip.find({ '_id': { $in: user.bookedTrips } });
+
+  if (!trips.length) {
+    throw new APIError(RESPONSE_STATUS_CODE.internalServer, "Unable to find trips!");
+  }
+  return res
+    .status(RESPONSE_STATUS_CODE.ok)
+    .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Trips found!", { trips, total: trips.length }));
+});
