@@ -27,17 +27,12 @@ const tripSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
-  endDate: {
-    type: Date
-  },
   createdByUser: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   }
 }, { timestamps: true });
-
-// tripSchema.pre('save', async function (next) {
 //   if (!this.isModified('activities') || !this.isNew) {
 //     return next();
 //   }

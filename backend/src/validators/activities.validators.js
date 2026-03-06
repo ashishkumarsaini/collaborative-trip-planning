@@ -1,4 +1,5 @@
 import { body } from "express-validator";
+import { LOCATION_DESC_NAME_MAX_LIMIT, LOCATION_DESC_NAME_MIN_LIMIT } from "./location.validators.js";
 
 export const ACTIVITY_NAME_MIN_LENGTH = 3;
 export const ACTIVITY_NAME_MAX_LENGTH = 100;
@@ -60,11 +61,23 @@ const orderValidator = body('order')
 
     return true;
   });
+const locationValidator = body('location').isObject().withMessage(`Loction is required!`);
+
+const activityLocationCity = body('location.city').notEmpty()
+  .withMessage(`City cannot be empty!`);
+const activityLocationDesc = body('location.description')
+  .isLength({ min: LOCATION_DESC_NAME_MIN_LIMIT, max: LOCATION_DESC_NAME_MAX_LIMIT })
+  .withMessage(
+    `Description should be in between ${LOCATION_DESC_NAME_MIN_LIMIT} and ${LOCATION_DESC_NAME_MAX_LIMIT} characters!`
+  );
 
 export const activityValidator = [
   activityNameValidator,
   activityDescValidator,
   numberOfDaysValidator,
   startDateValidator,
-  orderValidator
+  orderValidator,
+  locationValidator,
+  activityLocationCity,
+  activityLocationDesc
 ];

@@ -10,7 +10,7 @@ const locationSchema = new mongoose.Schema({
     required: true,
     trim: true
   },
-  address: {
+  description: {
     type: String,
     required: true,
     minlength: LOCATION_ADDRESS_NAME_MIN_LIMIT,
@@ -19,12 +19,12 @@ const locationSchema = new mongoose.Schema({
   },
   state: {
     type: String,
-    required: true,
+    // required: true, TODO: imporve location model
     trim: true
   },
   country: {
     type: String,
-    required: true,
+    // required: true, TODO: imporve location model
     trim: true
   }
 });
