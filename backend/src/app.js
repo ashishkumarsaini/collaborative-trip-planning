@@ -8,7 +8,7 @@ import {
     tripRouter
 } from './routes/index.js';
 
-const app = express();
+export const app = express();
 
 app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
@@ -29,5 +29,3 @@ app.get('/api/health-check', (_req, res) => {
         message: "✅ API IS WORKING"
     });
 });
-
-export { app };
