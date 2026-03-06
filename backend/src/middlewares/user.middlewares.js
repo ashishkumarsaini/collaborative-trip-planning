@@ -32,3 +32,19 @@ export const verifySubAdmin = asyncHandler(async (req, _res, next) => {
   req.user = user;
   next();
 });
+
+export const verifyAdminOrSubAdmin = asyncHandler(async (req, _res, next) => {
+  const user = req.user; // verifyJWT should be execute before
+  if (!user) {
+    throw new APIError(RESPONSE_STATUS_CODE.forbidden, 'Unauthorized Access! Invalid User');
+  }
+
+  const isAdminUser = user.role === USER_ROLE.subAdmin || user.role === USER_ROLE.admin;
+
+  if (!isAdminUser) {
+    throw new APIError(RESPONSE_STATUS_CODE.forbidden, 'Unauthorized Access!');
+  }
+
+  req.user = user;
+  next();
+});

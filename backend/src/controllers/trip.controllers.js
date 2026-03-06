@@ -6,15 +6,6 @@ export const createTrip = asyncHandler(async (req, res) => {
   const tripData = req.body;
   const userId = req.user._id;
 
-  if (!tripData.activities?.length) {
-    throw new APIError(RESPONSE_STATUS_CODE.badRequest, 'No activities found!');
-  }
-  const isValidActivityIds = tripData.activities.every((activity) => mongoose.isValidObjectId(activity));
-
-  if (!isValidActivityIds) {
-    throw new APIError(RESPONSE_STATUS_CODE.badRequest, 'Invalid Activity Id found!');
-  }
-
   const createdTrip = await Trip.create({ ...tripData, createdByUser: userId });
 
   if (!createdTrip) {
@@ -85,3 +76,15 @@ export const getTrip = asyncHandler(async (req, res) => {
     .status(RESPONSE_STATUS_CODE.ok)
     .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Trip found!", { trip }));
 });
+
+export const getCreatedTrips = asyncHandler((req, res) => {
+  // const userId = req.user._id;
+
+  res.status(200).json({ message: "Created trips" });
+});
+
+export const getBookedTrips = asyncHandler((req, res) => {
+
+  res.status(200).json({ message: "Booked trips" });
+});
+
