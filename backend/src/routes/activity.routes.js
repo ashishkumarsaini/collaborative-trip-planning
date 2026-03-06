@@ -41,7 +41,7 @@ activityRouter
   );
 activityRouter
   .route('/delete/:tripId/:activityId')
-  .delete(verifyJWT, verifyAdmin, deleteActivity);
+  .delete(verifyJWT, verifyAdmin, userCreatedTrip, deleteActivity);
 activityRouter
   .route('/:activityId')
   .get(getActivity);

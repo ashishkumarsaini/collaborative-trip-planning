@@ -13,7 +13,7 @@ export const verifyJWT = asyncHandler(async (req, _res, next) => {
     const decodedToken = extractJsonWebTokenPayload(token);
 
     if (!decodedToken || !decodedToken._id) {
-      throw new APIError(RESPONSE_STATUS_CODE.unauthorized, "Invalid token");
+      throw new APIError(RESPONSE_STATUS_CODE.unauthorized, "Invalid user.");
     }
 
     const user = await User.findById(decodedToken._id);
@@ -25,6 +25,6 @@ export const verifyJWT = asyncHandler(async (req, _res, next) => {
     req.user = user;
     next();
   } catch (error) {
-    throw new APIError(RESPONSE_STATUS_CODE.unauthorized, `Unauthorized Access. Error: ${error}`);
+    throw new APIError(RESPONSE_STATUS_CODE.unauthorized, `Unauthorized Access. Error: ${error.message}`);
   }
 });

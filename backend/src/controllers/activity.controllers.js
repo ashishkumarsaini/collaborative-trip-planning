@@ -10,7 +10,7 @@ export const createActivity = asyncHandler(async (req, res) => {
   const session = await mongoose.startSession();
 
   try {
-    const createdActivity = await Activity.create({ ...activityData, location: location._id }, { session });
+    const [createdActivity] = await Activity.create([{ ...activityData, location: location._id }], { session });
 
     if (!createdActivity) {
       throw new APIError(RESPONSE_STATUS_CODE.internalServer, "Unable to create activity!");
@@ -84,8 +84,8 @@ export const updateActivity = asyncHandler(async (req, res) => {
       .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Activity updated!"));
   } catch (error) {
     await session.abortTransaction();
-    console.error('Failed to create activity:', error);
-    throw new APIError(RESPONSE_STATUS_CODE.internalServer, "Unable to create activity!");
+    console.error('Failed to update activity:', error);
+    throw new APIError(RESPONSE_STATUS_CODE.internalServer, "Unable to delete activity!");
   } finally {
     await session.endSession();
   }
@@ -93,20 +93,43 @@ export const updateActivity = asyncHandler(async (req, res) => {
 
 export const deleteActivity = asyncHandler(async (req, res) => {
   const { activityId } = req.params;
+  const trip = req.trip;
 
   if (!mongoose.isValidObjectId(activityId)) {
     throw new APIError(RESPONSE_STATUS_CODE.badRequest, "Invalid Activity Id!");
   }
 
-  const deletedActivity = await Activity.findByIdAndDelete(activityId);
+  const session = await mongoose.startSession();
 
-  if (!deletedActivity) {
-    throw new APIError(RESPONSE_STATUS_CODE.notFound, "Unable to delete activity!");
+  try {
+    const deletedActivity = await Activity.findByIdAndDelete(activityId, { session });
+
+    if (!deletedActivity) {
+      throw new APIError(RESPONSE_STATUS_CODE.notFound, "Unable to delete activity!");
+    }
+
+    const updatedTrip = await Trip.findByIdAndUpdate(
+      trip._id,
+      {
+        $inc: { numberOfDays: -deletedActivity.numberOfDays }
+      },
+      { new: true, session }
+    );
+
+    if (!updatedTrip) {
+      throw new APIError(RESPONSE_STATUS_CODE.internalServer, "Unable to update trip!");
+    }
+
+    return res
+      .status(RESPONSE_STATUS_CODE.ok)
+      .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Activity deleted!"));
+  } catch (error) {
+    await session.abortTransaction();
+    console.error('Failed to delete activity:', error);
+    throw new APIError(RESPONSE_STATUS_CODE.internalServer, "Unable to delete activity!");
+  } finally {
+    await session.endSession();
   }
-
-  return res
-    .status(RESPONSE_STATUS_CODE.ok)
-    .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Activity deleted!"));
 });
 
 export const getActivity = asyncHandler(async (req, res) => {
