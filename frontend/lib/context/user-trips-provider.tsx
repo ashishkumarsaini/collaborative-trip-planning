@@ -1,44 +1,70 @@
 "use client";
 
-import { createContext, ReactNode, useContext, useState } from "react";
-import { Trip } from "../types";
-import { getUserBookedTrips, getUserCreatedTrips } from "../services/user";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import { TripsData } from "../types";
+import { getUserBookedTrips, getUserCreatedTrips, getRecommendations } from "../services/trip";
+
+interface TripsState {
+  isLoading: boolean,
+  data: TripsData | null
+}
 
 interface UserTripsContextValue {
-  tripsCreated: Trip[];
-  tripBooked: Trip[],
+  tripsCreated: TripsState;
+  tripBooked: TripsState,
+  recommendations: TripsState,
   onLoadBookedTrips: () => Promise<void> | null,
   onLoadCreatedTrips: () => Promise<void> | null
+  onLoadRecommendations: () => Promise<void> | null
 }
 
 const UserTripsContext = createContext<UserTripsContextValue>({
-  tripsCreated: [],
-  tripBooked: [],
+  tripsCreated: { isLoading: false, data: null },
+  tripBooked: { isLoading: false, data: null },
+  recommendations: { isLoading: false, data: null },
   onLoadBookedTrips: () => null,
-  onLoadCreatedTrips: () => null
+  onLoadCreatedTrips: () => null,
+  onLoadRecommendations: () => null
 });
 
 export const UserTripsProvider = ({ children }: { children: ReactNode }) => {
-  const [tripsCreated, setTripsCreated] = useState<Trip[]>([]);
-  const [tripBooked, setTripBooked] = useState<Trip[]>([]);
+  const [tripsCreated, setTripsCreated] = useState<TripsState>({ isLoading: false, data: null });
+  const [tripBooked, setTripBooked] = useState<TripsState>({ isLoading: false, data: null });
+  const [recommendations, setRecommendations] = useState<TripsState>({ isLoading: false, data: null });
 
   const handleLoadBookedTrips = async () => {
-    const bookedTrips = await getUserBookedTrips();
+    setTripBooked({ isLoading: true, data: null });
+    const { data } = await getUserBookedTrips();
 
-    setTripBooked(bookedTrips || []);
+    setTripBooked({ isLoading: false, data });
   }
+
   const handleLoadCreatedTrips = async () => {
-    const createdTrips = await getUserCreatedTrips();
-
-    setTripsCreated(createdTrips || []);
+    setTripsCreated({ isLoading: true, data: null });
+    const { data } = await getUserCreatedTrips();
+    setTripsCreated({ isLoading: false, data: data });
   }
+
+  const handleLoadRecommendations = async () => {
+    setRecommendations({ isLoading: true, data: null });
+    const { data } = await getRecommendations();
+
+    setRecommendations({ isLoading: false, data: data });
+  }
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    handleLoadRecommendations();
+  }, [])
 
 
   const tripsContextValue: UserTripsContextValue = {
     tripsCreated,
     tripBooked,
+    recommendations,
     onLoadBookedTrips: handleLoadBookedTrips,
-    onLoadCreatedTrips: handleLoadCreatedTrips
+    onLoadCreatedTrips: handleLoadCreatedTrips,
+    onLoadRecommendations: handleLoadRecommendations
   }
 
   return (

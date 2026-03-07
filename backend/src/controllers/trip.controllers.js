@@ -78,7 +78,7 @@ export const getTrip = asyncHandler(async (req, res) => {
 });
 
 export const getRecommendationTrips = asyncHandler(async (_req, res) => {
-  const trips = await Trip.find().sort({ createdAt: 1 }).limit(5);
+  const trips = await Trip.find({});
 
   return res
     .status(RESPONSE_STATUS_CODE.ok)

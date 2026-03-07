@@ -12,10 +12,13 @@ export const Header = () => {
       <div className="fixed top-0 right-0 left-0 w-full backdrop-blur-2xl border-b border-dashed z-50">
         <div className="h-mobile-header md:h-desktop-header flex items-center justify-between max-w-[1250px] border-r border-l m-auto px-5">
           <div className="flex flex-col">
-            <Link href="/" title="DesiBees">
+            <Link href="/" title="Wanderscape">
               <div className="flex gap-1">
                 <Mountain className="fill-primary" />
-                <p className="font-bold">DesiBees</p>
+                <p className="font-bold">
+                  <span className="text-primary">Wander</span>
+                  <span>Scape</span>
+                </p>
               </div>
             </Link>
           </div>
@@ -25,7 +28,7 @@ export const Header = () => {
                 <Link href='/login'>
                   <Button variant="link" className="flex gap-2">
                     <UserCircle />
-                    <p>Login</p>
+                    <p className="text-white">Login</p>
                   </Button>
                 </Link>
               ) : (

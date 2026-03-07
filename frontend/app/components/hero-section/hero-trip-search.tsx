@@ -3,6 +3,7 @@ import { Text } from "@/components/typography";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export const HeroTripSearch = () => {
   return (
@@ -73,13 +74,15 @@ export const HeroTripSearch = () => {
             </Field>
           </div>
           <div className=" col-span-3 px-5 gap-2 py-5 flex items-center justify-center">
-            <Button type="submit" className="w-full" size="lg">
-              <Search />
-              Search
-            </Button>
+            <Link href='/trips' className="w-full">
+              <Button type="submit" className="w-full" size="lg">
+                <Search />
+                Search
+              </Button>
+            </Link>
           </div>
         </div>
       </form>
     </div>
   )
-}
+};

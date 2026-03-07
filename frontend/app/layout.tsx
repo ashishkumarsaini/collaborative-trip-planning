@@ -15,7 +15,7 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "DesiBees",
+  title: "Wanderscape",
   description: "Book your trip today!",
 };
 

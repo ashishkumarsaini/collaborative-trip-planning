@@ -23,7 +23,7 @@ export enum HeadingLevel {
 const headingVariants = cva('font-medium tracking-wide', {
   variants: {
     size: {
-      [HeadingSize.xxl]: 'text-4xl lg:text-6xl',
+      [HeadingSize.xxl]: 'text-3xl lg:text-6xl',
       [HeadingSize.xl]: 'text-2xl lg:text-4xl',
       [HeadingSize.lg]: 'text-xl lg:text-2xl',
       [HeadingSize.md]: 'text-lg lg:text-xl',

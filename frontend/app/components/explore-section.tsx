@@ -1,73 +1,30 @@
+'use client';
 import { TripCard } from '@/components/trip-card';
 import { Carousel } from '@/components/carousel';
 import { Heading, HeadingLevel, HeadingSize } from "@/components/typography";
 import { Trip } from '@/lib/types';
 import { ReactNode } from 'react';
-
-const data: Trip[] = [{
-  _id: "69a673cdd94a9921a196c305",
-  description: 'Follow the essential steps to bring your innovative idea to market and ensure a successful product debut.',
-  name: "Grand Horizon Luxury Goa",
-  "createdByUser": "69a4ab33a8652c90b3df0469",
-  "numberOfDays": 20,
-  "startDate": "2026-05-10T00:00:00.000Z",
-  "endDate": "2026-05-20T00:00:00.000Z",
-  activities: []
-
-}, {
-  _id: "69a673cdd94a9921a196c305",
-  description: 'Follow the essential steps to bring your innovative idea to market and ensure a successful product debut.',
-  name: "Grand Horizon Luxury Goa",
-  "createdByUser": "69a4ab33a8652c90b3df0469",
-  "numberOfDays": 20,
-  "startDate": "2026-05-10T00:00:00.000Z",
-  "endDate": "2026-05-20T00:00:00.000Z",
-  activities: []
-
-}, {
-  _id: "69a673cdd94a9921a196c305",
-  description: 'Follow the essential steps to bring your innovative idea to market and ensure a successful product debut.',
-  name: "Grand Horizon Luxury Goa",
-  "createdByUser": "69a4ab33a8652c90b3df0469",
-  "numberOfDays": 20,
-  "startDate": "2026-05-10T00:00:00.000Z",
-  "endDate": "2026-05-20T00:00:00.000Z",
-  activities: []
-
-}, {
-  _id: "69a673cdd94a9921a196c305",
-  description: 'Follow the essential steps to bring your innovative idea to market and ensure a successful product debut.',
-  name: "Grand Horizon Luxury Goa",
-  "createdByUser": "69a4ab33a8652c90b3df0469",
-  "numberOfDays": 20,
-  "startDate": "2026-05-10T00:00:00.000Z",
-  "endDate": "2026-05-20T00:00:00.000Z",
-  activities: []
-
-}, {
-  _id: "69a673cdd94a9921a196c305",
-  description: 'Follow the essential steps to bring your innovative idea to market and ensure a successful product debut.',
-  name: "Grand Horizon Luxury Goa",
-  "createdByUser": "69a4ab33a8652c90b3df0469",
-  "numberOfDays": 20,
-  "startDate": "2026-05-10T00:00:00.000Z",
-  "endDate": "2026-05-20T00:00:00.000Z",
-  activities: []
-
-}, {
-  _id: "69a673cdd94a9921a196c305",
-  description: 'Follow the essential steps to bring your innovative idea to market and ensure a successful product debut.',
-  name: "Grand Horizon Luxury Goa",
-  "createdByUser": "69a4ab33a8652c90b3df0469",
-  "numberOfDays": 20,
-  "startDate": "2026-05-10T00:00:00.000Z",
-  "endDate": "2026-05-20T00:00:00.000Z",
-  activities: []
-},
-]
+import { useUserTrips } from '@/lib/context/user-trips-provider';
+import { Loader2Icon } from 'lucide-react';
 
 export const ExploreSection = () => {
+  const { recommendations } = useUserTrips();
+
+  const { isLoading, data } = recommendations;
+
+  if (!isLoading && !data?.trips.length) {
+    return null;
+  }
+
   const renderSlide = (item: unknown): ReactNode => {
+    if (isLoading) {
+      return (
+        <div className='h-[600px] w-[383px] flex items-center justify-center bg-muted rounded-md'>
+          <Loader2Icon className="size-4 animate-spin" />
+        </div>
+      );
+    }
+
     return (
       <TripCard trip={item as Trip} />
     )
@@ -78,7 +35,7 @@ export const ExploreSection = () => {
       <Heading level={HeadingLevel.h2} size={HeadingSize.xxl} className="capitalize max-w-2xl lg:leading-20">
         Dive into the beauty of the world
       </Heading>
-      <Carousel items={data} renderSlide={renderSlide} />
+      <Carousel items={data?.trips || [1, 2, 3, 4, 5, 6]} renderSlide={renderSlide} />
     </section>
   )
 }

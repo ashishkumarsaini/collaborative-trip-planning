@@ -12,3 +12,11 @@ export const formatDate = (date: string) => {
 
   return `${dayName}, ${monthName} ${dayOfMonth}, ${year}`;
 }
+
+export const calculateEndDate = (startDate: string, numberOfDays: number) => {
+  const date = new Date(startDate);
+
+  date.setDate(date.getDate() + numberOfDays + 1);
+
+  return formatDate(date.toDateString());
+}
