@@ -21,39 +21,38 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
   const handleLoginUser = async (email: string, password: string) => {
-    const toastPromise = loginUser({
+    await loginUser({
       body: { email, password }
-    });
-
-    toast.promise(
-      toastPromise,
-      {
-        loading: "Loading...",
-        error: (data) => data.message || 'Unable to register',
+    }).then((response) => {
+      toast(response.message);
+      if (response.data?.user) {
+        setUser(response.data.user);
       }
-    );
-
-    toastPromise.then(({ data }) => {
-      const { user } = data;
-      setUser(user);
+    }).catch((error) => {
+      toast("Error in login");
+      console.log(error);
     });
   };
 
   const handleLogoutUser = async () => {
-    const toastPromise = logoutUser();
-
-    toast.promise(
-      toastPromise,
-      {
-        loading: "Loading...",
-        error: (data) => data.message || 'Unable to register',
-      }
-    );
-
-    toastPromise.then(({ data }) => {
-      const { user } = data;
-      setUser(user);
-    });
+    await logoutUser()
+      .then((response) => {
+        if (response.success) {
+          toast("Logout Successfully!", {
+            description: response.message,
+          });
+          if (response.data?.user) {
+            setUser(response.data.user);
+          }
+        } else {
+          toast("Unable to logout.", {
+            description: response.message,
+          });
+        }
+      }).catch((error) => {
+        toast("Error in logout");
+        console.log(error);
+      });
   }
 
   const authValue: AuthContextValue = {

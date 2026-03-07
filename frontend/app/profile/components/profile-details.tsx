@@ -1,7 +1,8 @@
 'use client';
 
-import { Text, TextSize } from "@/components/typography";
+import { Heading, HeadingSize, Text } from "@/components/typography";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { useAuth } from "@/lib/context";
 
 export const ProfileDetails = () => {
@@ -12,15 +13,15 @@ export const ProfileDetails = () => {
   }
 
   return (
-    <div className="border border-dashed rounded">
-      <div className="flex flex-col items-center justify-center p-4">
+    <div className="border border-dashed rounded-md">
+      <div className="flex flex-col items-center gap-4 justify-center p-4">
         <Avatar className="p-10 bg-muted">
           <AvatarFallback className="text-2xl text-primary">{`${user.firstName.charAt(0)}${user.lastName.charAt(0)}`}</AvatarFallback>
         </Avatar>
-        <Text className="capitalize mt-2">{`${user.firstName} ${user.lastName}`}</Text>
-        <Text className="capitalize" size={TextSize.sm}>{user.role}</Text>
-        <div className="bg-muted">
-        </div>
+        <Heading size={HeadingSize.lg}>{`${user.firstName} ${user.lastName}`}</Heading>
+        <Badge className="uppercase">
+          {user.role}
+        </Badge>
       </div>
     </div>
   )

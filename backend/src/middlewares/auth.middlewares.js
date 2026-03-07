@@ -3,7 +3,7 @@ import { User } from "../models/user.model.js";
 import { APIError, asyncHandler, RESPONSE_STATUS_CODE } from "../utils/index.js";
 
 export const verifyJWT = asyncHandler(async (req, _res, next) => {
-  const token = req.cookie?.accessToken || req.header('Authorization')?.replace('Bearer ', '');
+  const token = req.cookies?.accessToken || req.header('Authorization')?.replace('Bearer ', '');
 
   if (!token) {
     throw new APIError(RESPONSE_STATUS_CODE.unauthorized, "Unauthorized user");
