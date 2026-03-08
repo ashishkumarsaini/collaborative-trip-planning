@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
-import { TRIP_NAME_MIN_LENGTH, TRIP_NAME_MAX_LENGTH } from '../validators/index.js';
-// import { Activity } from './activity.model.js';
+import { TRIP_NAME_MIN_LENGTH, TRIP_NAME_MAX_LENGTH, TRIP_PERMISSION } from '../validators/index.js';
 
 const tripSchema = new mongoose.Schema({
   name: {
@@ -31,7 +30,15 @@ const tripSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
-  }
+  },
+  addedUsersEmail: [{
+    type: String,
+    permission: {
+      type: String,
+      enum: TRIP_PERMISSION,
+      default: TRIP_PERMISSION.viewer
+    }
+  }]
 }, { timestamps: true });
 //   if (!this.isModified('activities') || !this.isNew) {
 //     return next();

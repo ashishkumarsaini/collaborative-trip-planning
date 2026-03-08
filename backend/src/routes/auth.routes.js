@@ -1,7 +1,7 @@
 import express from 'express';
 import { loginUserValidator, registerUserValidator } from '../validators/user.validators.js';
 import { validateMiddleware } from '../middlewares/validate.middlewares.js';
-import { registerUser, loginUser, logoutUser } from '../controllers/auth.controllers.js';
+import { registerUser, loginUser, logoutUser, getUserProfile } from '../controllers/auth.controllers.js';
 import { verifyJWT } from '../middlewares/auth.middlewares.js';
 
 const authRouter = express.Router();
@@ -9,5 +9,6 @@ const authRouter = express.Router();
 authRouter.route('/register').post(registerUserValidator, validateMiddleware, registerUser);
 authRouter.route('/login').post(loginUserValidator, validateMiddleware, loginUser);
 authRouter.route('/logout').post(verifyJWT, logoutUser);
+authRouter.route('/profile').get(verifyJWT, getUserProfile);
 
 export { authRouter };

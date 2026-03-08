@@ -5,6 +5,7 @@ import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Toaster } from "@/components/ui/sonner";
 import { RootProvider } from "@/lib/context";
+import { AppDrawers } from "@/components/app-drawers";
 
 
 // Configure the font
@@ -39,6 +40,7 @@ export default function RootLayout({
             </main>
             <Footer />
           </div>
+          <AppDrawers />
           <Toaster />
         </RootProvider>
       </body>

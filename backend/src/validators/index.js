@@ -23,5 +23,6 @@ export {
 export {
   TRIP_NAME_MAX_LENGTH,
   TRIP_NAME_MIN_LENGTH,
-  tripValidator
+  tripValidator,
+  TRIP_PERMISSION
 } from './trip.validators.js';

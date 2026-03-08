@@ -20,6 +20,12 @@ const startDateValidator = body('startDate')
     return true;
   });
 
+export const TRIP_PERMISSION = Object.freeze({
+  creator: 'creator',
+  editor: 'editor',
+  viewer: 'viewer'
+});
+
 export const tripValidator = [
   nameValidators,
   startDateValidator

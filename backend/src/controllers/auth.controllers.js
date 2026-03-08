@@ -58,7 +58,26 @@ export const loginUser = asyncHandler(async (req, res) => {
       new APIResponse(
         RESPONSE_STATUS_CODE.ok,
         "Logged in successfully!",
-        { user: user.toJSON() }
+        {
+          user: user.toJSON(),
+          accessToken
+        }
+      )
+    );
+});
+
+export const getUserProfile = asyncHandler(async (req, res) => {
+  if (!req.user) {
+    throw new APIError(RESPONSE_STATUS_CODE.notFound, 'User not found!');
+  }
+
+  res
+    .status(RESPONSE_STATUS_CODE.ok)
+    .json(
+      new APIResponse(
+        RESPONSE_STATUS_CODE.ok,
+        'User fetched successfully',
+        { user: req.user.toJSON() }
       )
     );
 });
