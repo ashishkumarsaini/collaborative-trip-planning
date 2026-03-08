@@ -19,7 +19,7 @@ import {
 
 const tripRouter = express.Router();
 
-tripRouter.route('/create').post(verifyJWT, verifyAdminOrSubAdmin, tripValidator, validateMiddleware, createTrip);
+tripRouter.route('/create').post(verifyJWT, tripValidator, validateMiddleware, createTrip);
 tripRouter
   .route('/update/:tripId')
   .put(verifyJWT, verifyAdminOrSubAdmin, userCreatedTrip, tripValidator, validateMiddleware, updateTrip);

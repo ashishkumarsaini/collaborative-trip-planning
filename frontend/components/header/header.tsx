@@ -2,10 +2,11 @@
 import { Mountain, UserCircle } from "lucide-react"
 import { Button } from "../ui/button"
 import Link from "next/link"
-import { useAuth } from "@/lib/context";
+import { useAuth, useDrawers } from "@/lib/context";
 
 export const Header = () => {
   const { user } = useAuth();
+  const { onCreateTripDrawerToggle } = useDrawers();
 
   return (
     <header>
@@ -32,12 +33,15 @@ export const Header = () => {
                   </Button>
                 </Link>
               ) : (
-                <Link href='/profile'>
-                  <Button variant="link" className="flex gap-2">
-                    <UserCircle />
-                    <p>{user?.firstName}</p>
-                  </Button>
-                </Link>
+                <>
+                  <Link href='/profile'>
+                    <Button variant="link" className="flex gap-2">
+                      <UserCircle />
+                      <p>{user?.firstName}</p>
+                    </Button>
+                  </Link>
+                  <Button onClick={() => onCreateTripDrawerToggle(true)}>Create Trip</Button>
+                </>
               )}
             </div>
           </div>

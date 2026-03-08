@@ -15,7 +15,6 @@ export const createTrip = asyncHandler(async (req, res) => {
   return res
     .status(RESPONSE_STATUS_CODE.ok)
     .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Trip Created!", { trip: createdTrip }));
-
 });
 
 export const updateTrip = asyncHandler(async (req, res) => {
@@ -113,3 +112,7 @@ export const getBookedTrips = asyncHandler(async (req, res) => {
     .status(RESPONSE_STATUS_CODE.ok)
     .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Trips found!", { trips, total: trips.length }));
 });
+
+// export const addUserToTrip = asyncHandler(async (req, res) => {
+//   const user = req.user;
+// });
