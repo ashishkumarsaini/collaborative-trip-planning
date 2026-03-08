@@ -113,6 +113,29 @@ export const getBookedTrips = asyncHandler(async (req, res) => {
     .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Trips found!", { trips, total: trips.length }));
 });
 
-// export const addUserToTrip = asyncHandler(async (req, res) => {
-//   const user = req.user;
-// });
+export const addUserPermissionForTrip = asyncHandler(async (req, res) => {
+  const { tripId } = req.params;
+
+  if (!mongoose.isValidObjectId(tripId)) {
+    throw new APIError(RESPONSE_STATUS_CODE.badRequest, "Invalid Trip Id!");
+  }
+
+  const { email, permission } = req.body;
+
+  const updatedTrip = await Trip.findByIdAndUpdate(
+    tripId,
+    {
+      $push:
+        { addedUsersEmail: { email, permission } }
+    }, { returnDocument: 'after' }
+  );
+
+  if (!updatedTrip) {
+    throw new APIError(RESPONSE_STATUS_CODE.notFound, "Unable to update trip!");
+  }
+
+  return res
+    .status(RESPONSE_STATUS_CODE.ok)
+    .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Permission Added!", { trip: updatedTrip }));
+
+});

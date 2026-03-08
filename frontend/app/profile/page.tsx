@@ -14,9 +14,6 @@ export const ProfilePage = () => {
     redirect('/login');
   }
 
-  const isUser = user.role === ROLE.user;
-  const isAdmin = user.role === ROLE.admin;
-
   return (
     <div className="py-10">
       <div className="grid grid-cols-12 gap-4">
@@ -26,9 +23,9 @@ export const ProfilePage = () => {
           </div>
         </div>
         <div className="col-start-1 col-span-12 md:col-span-8 flex flex-col gap-4">
-          {isAdmin && <AllTrips />}
-          {!isUser && <TripsCreated />}
-          <TripsBooked />
+          {/* {isAdmin && <AllTrips />} */}
+          <TripsCreated />
+          {/* <TripsBooked /> */}
         </div>
       </div>
     </div>

@@ -22,11 +22,11 @@ export const SignupForm = () => {
   const { control, formState, handleSubmit, reset } = useForm<SignUpFormSchemaType>({
     resolver: zodResolver(signUpFormSchema),
     defaultValues: {
-      firstName: 'Ashish',
-      lastName: 'Saini',
-      email: 'shaktimaan@gmail.com',
-      password: 'Shaktimaan@123',
-      confirmPassword: 'Shaktimaan@123'
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: ''
     },
   });
 

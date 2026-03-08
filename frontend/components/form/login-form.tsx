@@ -23,8 +23,8 @@ export function LoginForm({
   const { control, formState, handleSubmit, reset } = useForm<LoginFormSchemaType>({
     resolver: zodResolver(loginFormSchema),
     defaultValues: {
-      email: 'shaktimaan@gmail.com',
-      password: 'Shaktimaan@123',
+      email: '',
+      password: ''
     },
   });
 
@@ -40,7 +40,7 @@ export function LoginForm({
     <form className={cn("flex flex-col gap-6", className)} noValidate onSubmit={handleSubmit(onSubmit)}>
       <FieldGroup>
         <div className="flex flex-col items-center gap-1 text-center">
-          <h1 className="text-2xl font-bold">Create your account</h1>
+          <h1 className="text-2xl font-bold">Logged in to your account</h1>
           <p className="text-muted-foreground text-sm text-balance">
             Fill in the form below to login into your account
           </p>

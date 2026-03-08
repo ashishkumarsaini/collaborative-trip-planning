@@ -19,5 +19,6 @@ export {
   getTrip,
   getBookedTrips,
   getCreatedTrips,
-  getRecommendationTrips
+  getRecommendationTrips,
+  addUserPermissionForTrip
 } from './trip.controllers.js';

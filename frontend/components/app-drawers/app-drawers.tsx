@@ -15,12 +15,13 @@ export const AppDrawers = () => {
   return (
     <>
       <CreateTripDrawer opened={createTripDrawerOpened} onClose={() => onCreateTripDrawerToggle(false)} />
-      <UpdateTripDrawer
-        opened={updateTripDrawerOpened.opened}
-        onClose={() => onUpdateTripDrawerToggle(false)}
-        trip={updateTripDrawerOpened.trip}
-      />
+      {updateTripDrawerOpened.trip && (
+        <UpdateTripDrawer
+          opened={updateTripDrawerOpened.opened}
+          onClose={() => onUpdateTripDrawerToggle(false)}
+          trip={updateTripDrawerOpened.trip}
+        />
+      )}
     </>
   )
-
 }

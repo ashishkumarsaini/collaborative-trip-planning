@@ -3,6 +3,7 @@
 import { Heading, HeadingSize, Text, TextSize } from "@/components/typography";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useDrawers } from "@/lib/context";
 import { getUserCreatedTrips } from "@/lib/services";
 import { TripsData } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -13,6 +14,7 @@ import { useEffect, useState } from "react";
 export const TripsCreated = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [tripsCreated, setTripsCreated] = useState<TripsData | null>(null);
+  const { onUpdateTripDrawerToggle, onAddTripPermisionDrawerToggle } = useDrawers();
 
   const handleLoadCreatedTrips = async () => {
     const { data } = await getUserCreatedTrips();
@@ -70,22 +72,19 @@ export const TripsCreated = () => {
           {
             trips.map((trip, index) => (
               <li key={trip._id} className={cn("py-4", { 'border-b border-primary': index })}>
-                <Link href={`/trip/${trip._id}`} >
-                  <div className="flex justify-between items-center">
-                    <Heading size={HeadingSize.md}>{trip.name}</Heading>
-                    <div className="flex gap-2">
-                      <Link href={`/trip/${trip._id}`}>
-                        <Button>View</Button>
-                      </Link>
-                      <Link href={`/trip/${trip._id}/update`}>
-                        <Button variant="outline">Update</Button>
-                      </Link>
-                    </div>
+                <div className="flex justify-between items-center">
+                  <Heading size={HeadingSize.md}>{trip.name}</Heading>
+                  <div className="flex gap-2">
+                    <Link href={`/trip/${trip._id}`}>
+                      <Button variant="outline">View</Button>
+                    </Link>
+                    <Button onClick={(() => onUpdateTripDrawerToggle(true, trip))}>Update</Button>
+                    <Button onClick={(() => onAddTripPermisionDrawerToggle(true, trip._id))}>Add Permissions</Button>
                   </div>
-                  <div className="mt-4">
-                    <Text size={TextSize.xxs}>{trip.description}</Text>
-                  </div>
-                </Link>
+                </div>
+                <div className="mt-4">
+                  <Text size={TextSize.xxs}>{trip.description}</Text>
+                </div>
               </li>
             ))
           }

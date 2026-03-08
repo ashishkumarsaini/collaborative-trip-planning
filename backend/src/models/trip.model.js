@@ -32,12 +32,19 @@ const tripSchema = new mongoose.Schema({
     required: true
   },
   addedUsersEmail: [{
-    type: String,
+    email: {
+      type: String
+    },
     permission: {
       type: String,
       enum: TRIP_PERMISSION,
       default: TRIP_PERMISSION.viewer
     }
+  }],
+  travellers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   }]
 }, { timestamps: true });
 //   if (!this.isModified('activities') || !this.isNew) {

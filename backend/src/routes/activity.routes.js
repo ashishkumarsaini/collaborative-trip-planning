@@ -5,7 +5,7 @@ import {
   verifyAdmin,
   verifyJWT,
   verifyAdminOrSubAdmin,
-  userCreatedTrip,
+  // userCreatedTrip,
   useLocation
 } from "../middlewares/index.js";
 import {
@@ -22,7 +22,7 @@ activityRouter
   .post(
     verifyJWT,
     verifyAdminOrSubAdmin,
-    userCreatedTrip,
+    // userCreatedTrip,
     useLocation,
     activityValidator,
     validateMiddleware,
@@ -33,7 +33,7 @@ activityRouter
   .put(
     verifyJWT,
     verifyAdminOrSubAdmin,
-    userCreatedTrip,
+    // userCreatedTrip,
     useLocation,
     activityValidator,
     validateMiddleware,
@@ -41,7 +41,7 @@ activityRouter
   );
 activityRouter
   .route('/delete/:tripId/:activityId')
-  .delete(verifyJWT, verifyAdmin, userCreatedTrip, deleteActivity);
+  .delete(verifyJWT, verifyAdmin, deleteActivity);
 activityRouter
   .route('/:activityId')
   .get(getActivity);
