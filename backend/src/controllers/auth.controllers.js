@@ -4,7 +4,7 @@ import { APIError, APIResponse, asyncHandler, RESPONSE_STATUS_CODE } from "../ut
 export const registerUser = asyncHandler(async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
 
-  const searchedUser = await User.findOne({ email });
+  const searchedUser = await User.exists({ email });
 
   if (searchedUser) {
     throw new APIError(RESPONSE_STATUS_CODE.conflict, "Email already exists!");
