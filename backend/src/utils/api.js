@@ -16,6 +16,7 @@ export class APIError {
     this.errors = errors;
     this.stack = stack;
     this.data = data;
+    this.success = false;
   }
 }
 
@@ -24,5 +25,6 @@ export class APIResponse {
     this.statusCode = statusCode;
     this.message = message;
     this.data = data;
+    this.success = statusCode >= 200 && statusCode <= 299;
   }
 }
