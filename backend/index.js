@@ -5,15 +5,24 @@ import { APP_PORT } from './src/libs/secrets.js';
 
 dotenv.config({ path: '.env' });
 
-const intializeApplication = () => {
-  connectDatabase().then(() => {
-    app.listen(APP_PORT, (error) => {
-      if (error) {
-        console.log(`🚫 Error in connecting application. PORT:${APP_PORT} `);
-      }
-      console.log(`✅ App listning. PORT:${APP_PORT}`);
-    });
-  }).catch(console.error);
+const startServer = () => {
+  app.listen(APP_PORT, (error) => {
+    if (error) {
+      console.error(`🚫 Error starting application. PORT: ${APP_PORT}`, error);
+      return;
+    }
+    console.log(`✅ App listening. PORT: ${APP_PORT}`);
+  });
 };
 
-intializeApplication();
+const initializeApplication = async () => {
+  try {
+    await connectDatabase();
+    startServer();
+  } catch (error) {
+    console.error('🚫 Failed to start application because database connection failed.', error);
+    process.exit(1);
+  }
+};
+
+initializeApplication();

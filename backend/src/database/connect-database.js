@@ -2,21 +2,16 @@ import mongoose from 'mongoose';
 import { MONGODB_URI } from '../libs/index.js';
 
 export const connectDatabase = async () => {
-    try {
-        if (!MONGODB_URI) {
-            throw new Error(`Mongodb connection url is invalid.`);
-        }
+  if (!MONGODB_URI) {
+    throw new Error('MONGODB_URI is not defined or invalid.');
+  }
 
-        await mongoose.connect(MONGODB_URI)
-            .then(() => {
-                console.log(
-                    `✅ Mongoose database connected successfully.`
-                );
-            })
-            .catch(() => {
-                console.log(`🚫 Error in connecting database.`);
-            });
-    } catch (error) {
-        console.log(`🚫 Error in connecting database. Error: ${error}`);
-    }
+  try {
+    await mongoose.connect(MONGODB_URI);
+    console.log('✅ Mongoose database connected successfully.');
+  } catch (error) {
+    console.error('🚫 Error connecting to MongoDB:', error);
+    throw error;
+  }
 };
+
