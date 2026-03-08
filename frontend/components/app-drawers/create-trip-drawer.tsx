@@ -15,8 +15,9 @@ export const CreateTripDrawer = ({ opened, onClose }: { opened: boolean, onClose
 
     await toast.message(message);
 
-    const tripId = data.trip._id
-    redirect(`/trip/${tripId}/update`);
+    const tripId = data.trip._id;
+    onClose();
+    redirect(`/trip/${tripId}`);
   };
 
   return (

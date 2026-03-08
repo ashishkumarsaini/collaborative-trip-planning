@@ -64,11 +64,6 @@ export const TripsCreated = () => {
           <Heading size={HeadingSize.lg}>Trips Created</Heading>
           <Badge variant="outline" className="p-3"><Text size={TextSize.sm}>{total}</Text></Badge>
         </div>
-        <Link href='/trip/create'>
-          <Button>
-            Create New Trip
-          </Button>
-        </Link>
       </div>
       <div className="pl-4">
         <ul>
