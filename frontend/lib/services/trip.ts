@@ -34,3 +34,11 @@ export const updateTrip = (tripId: string, tripData: CreateTripRequestBodyType) 
 export const deleteTrip = (tripId: string) => {
   return api.delete<CreateTripResponseType>(buildRequestUrl(`/${TRIP_NAMESPACE}/delete/${tripId}`));
 }
+
+export const addTripPermission = (tripId: string, body: { email: string; permission: string }) => {
+  return api.put<CreateTripResponseType>(buildRequestUrl(`/${TRIP_NAMESPACE}/permission/add/${tripId}`), { body });
+}
+
+export const removeTripPermission = (tripId: string, permissionId: string) => {
+  return api.put<CreateTripResponseType>(buildRequestUrl(`/${TRIP_NAMESPACE}/permission/remove/${tripId}/${permissionId}`));
+}

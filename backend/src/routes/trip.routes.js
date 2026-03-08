@@ -7,7 +7,8 @@ import {
   getBookedTrips,
   getCreatedTrips,
   getRecommendationTrips,
-  addUserPermissionForTrip
+  addUserPermissionForTrip,
+  removeUserPermissionForTrip
 } from '../controllers/index.js';
 import { tripValidator } from '../validators/trip.validators.js';
 import {
@@ -31,5 +32,8 @@ tripRouter.route('/:tripId').get(getTrip);
 
 // trip permisisons
 tripRouter.route('/permission/add/:tripId').put(verifyJWT, verifyTripCreator, addUserPermissionForTrip);
+tripRouter
+  .route('/permission/remove/:tripId/:permissionId')
+  .put(verifyJWT, verifyTripCreator, removeUserPermissionForTrip);
 
 export { tripRouter };

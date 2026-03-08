@@ -139,3 +139,28 @@ export const addUserPermissionForTrip = asyncHandler(async (req, res) => {
     .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Permission Added!", { trip: updatedTrip }));
 
 });
+
+export const removeUserPermissionForTrip = asyncHandler(async (req, res) => {
+  const { tripId, permissionId } = req.params;
+
+  if (!mongoose.isValidObjectId(tripId)) {
+    throw new APIError(RESPONSE_STATUS_CODE.badRequest, "Invalid Trip Id!");
+  }
+
+  const updatedTrip = await Trip.findByIdAndUpdate(
+    tripId,
+    {
+      $pull:
+        { addedUsersEmail: { _id: permissionId } }
+    }, { returnDocument: 'after' }
+  );
+
+  if (!updatedTrip) {
+    throw new APIError(RESPONSE_STATUS_CODE.notFound, "Unable to remove permission!");
+  }
+
+  return res
+    .status(RESPONSE_STATUS_CODE.ok)
+    .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Permission Removed!", { trip: updatedTrip }));
+
+});

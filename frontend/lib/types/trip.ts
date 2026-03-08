@@ -1,6 +1,14 @@
 import { ActivitySchemaType } from "../validators";
 import { APIResponseType } from "./api";
 
+export enum PERMISSIONS {
+  viewer = 'viewer',
+  editor = 'editor',
+  creator = 'creator',
+};
+
+export type Permission = keyof typeof PERMISSIONS;
+
 export interface Activity {
   _id: string,
   name: string,
@@ -18,7 +26,7 @@ export interface Activity {
   order: number,
 };
 
-export interface Trip {
+type TripCommon = {
   _id: string,
   name: string,
   description?: string,
@@ -26,17 +34,16 @@ export interface Trip {
   numberOfDays: number,
   startDate: string,
   createdByUser: string,
+  addedUsersEmail?: { _id: string; email: string; permission: string }[],
 }
 
-export interface TripWithActivity {
-  _id: string,
-  name: string,
-  description?: string,
+export type Trip = {
+  activities: string[]
+} & TripCommon;
+
+export type TripWithActivity = {
   activities: Activity[]
-  numberOfDays: number,
-  startDate: string,
-  createdByUser: string,
-}
+} & TripCommon;
 
 export interface TripsData {
   trips: Trip[],

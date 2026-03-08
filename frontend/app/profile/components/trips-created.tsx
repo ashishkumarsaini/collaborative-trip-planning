@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 export const TripsCreated = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [tripsCreated, setTripsCreated] = useState<TripsData | null>(null);
-  const { onUpdateTripDrawerToggle, onAddTripPermisionDrawerToggle } = useDrawers();
+  const { onUpdateTripDrawerToggle, onAddTripPermisionDrawerToggle, onRemoveTripPermissionDrawerToggle } = useDrawers();
 
   const handleLoadCreatedTrips = async () => {
     const { data } = await getUserCreatedTrips();
@@ -79,7 +79,8 @@ export const TripsCreated = () => {
                       <Button variant="outline">View</Button>
                     </Link>
                     <Button onClick={(() => onUpdateTripDrawerToggle(true, trip))}>Update</Button>
-                    <Button onClick={(() => onAddTripPermisionDrawerToggle(true, trip._id))}>Add Permissions</Button>
+                    <Button onClick={(() => onAddTripPermisionDrawerToggle(true, trip._id))}>Add permissions</Button>
+                    <Button variant="outline" onClick={() => onRemoveTripPermissionDrawerToggle(true, trip._id)}>Remove permissions</Button>
                   </div>
                 </div>
                 <div className="mt-4">
