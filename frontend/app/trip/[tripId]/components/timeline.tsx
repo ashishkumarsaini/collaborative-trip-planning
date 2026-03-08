@@ -2,24 +2,28 @@
 import { Heading, HeadingLevel, HeadingSize, Text } from "@/components/typography"
 import { FC } from "react";
 import { ActivityDetails } from "./activity";
-import { Activity } from "@/lib/types";
-import { useDrawers } from "@/lib/context";
+import { Activity, TripUserPermissions } from "@/lib/types";
+import { useAuth, useDrawers } from "@/lib/context";
 import { Button } from "@/components/ui/button";
 
 interface ActivityTimeline {
   activities: Activity[];
-  tripId: string
+  tripId: string,
+  usersHavePermission?: TripUserPermissions[];
 };
 
-export const ActivityTimeline: FC<ActivityTimeline> = ({ tripId, activities = [] }) => {
+export const ActivityTimeline: FC<ActivityTimeline> = ({ tripId, activities = [], usersHavePermission = [] }) => {
   const { onAddActivityDrawerOpenedToggle } = useDrawers();
+  const { user } = useAuth();
+
+  const isUserAllowedToEdit = usersHavePermission.some(({ email }) => email === user?.email)
 
   const isActivitiesAvaiable = activities.length;
   return (
     <div className="border border-solid rounded-md py-5 px-3 md:px-5 mg:px-10">
       <div className="flex justify-between">
         <Heading level={HeadingLevel.h2} size={HeadingSize.lg}>Activities</Heading>
-        <Button onClick={() => onAddActivityDrawerOpenedToggle(true, activities.length + 1, tripId)}>Add Activity</Button>
+        {isUserAllowedToEdit && <Button onClick={() => onAddActivityDrawerOpenedToggle(true, activities.length + 1, tripId)}>Add Activity</Button>}
       </div>
       {isActivitiesAvaiable ? (
         <div className="mt-5 border-l border-primary md:mx-5">

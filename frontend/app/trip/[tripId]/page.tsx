@@ -21,7 +21,7 @@ export default async function TripPage({ params }: { params: Promise<{ tripId: s
 
   const tripData = await getTrip(tripId);
 
-  if (!tripData) {
+  if (!tripData?.data?.trip) {
     return notFound();
   }
 
@@ -34,7 +34,7 @@ export default async function TripPage({ params }: { params: Promise<{ tripId: s
       <TripDetails trip={trip} />
       <div className="grid grid-cols-12 gap-4 mt-5">
         <div className="col-span-8">
-          <ActivityTimeline activities={trip.activities} tripId={trip._id} />
+          <ActivityTimeline activities={trip.activities} tripId={trip._id} usersHavePermission={trip.addedUsersEmail} />
         </div>
         <div className="col-span-4">
           <div>

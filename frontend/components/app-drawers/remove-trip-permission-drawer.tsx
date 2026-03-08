@@ -65,39 +65,39 @@ export const RemoveTripPermissionDrawer = ({ opened, onClose, tripId }: RemoveTr
           <SheetTitle>Remove permissions</SheetTitle>
           <SheetDescription>
             Remove a user&apos;s access to this trip.
+            <div className="mt-6">
+              {loading ? (
+                <div className="flex items-center justify-center py-8">
+                  <LucideLoader2 className="size-8 animate-spin text-muted-foreground" />
+                </div>
+              ) : permissions.length === 0 ? (
+                <p className="text-muted-foreground text-sm">No permissions added yet.</p>
+              ) : (
+                <ul className="space-y-2">
+                  {permissions.map((p) => (
+                    <li
+                      key={p._id}
+                      className="flex items-center justify-between gap-2 rounded-lg border px-3 py-2"
+                    >
+                      <span className="text-sm">
+                        <span className="font-medium">{p.email}</span>
+                        <span className="text-muted-foreground"> — {p.permission}</span>
+                      </span>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => handleRemove(p._id)}
+                        disabled={removingId === p._id}
+                      >
+                        {removingId === p._id ? "Removing…" : "Remove"}
+                      </Button>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </SheetDescription>
         </SheetHeader>
-        <div className="mt-6">
-          {loading ? (
-            <div className="flex items-center justify-center py-8">
-              <LucideLoader2 className="size-8 animate-spin text-muted-foreground" />
-            </div>
-          ) : permissions.length === 0 ? (
-            <p className="text-muted-foreground text-sm">No permissions added yet.</p>
-          ) : (
-            <ul className="space-y-2">
-              {permissions.map((p) => (
-                <li
-                  key={p._id}
-                  className="flex items-center justify-between gap-2 rounded-lg border px-3 py-2"
-                >
-                  <span className="text-sm">
-                    <span className="font-medium">{p.email}</span>
-                    <span className="text-muted-foreground"> — {p.permission}</span>
-                  </span>
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    onClick={() => handleRemove(p._id)}
-                    disabled={removingId === p._id}
-                  >
-                    {removingId === p._id ? "Removing…" : "Remove"}
-                  </Button>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
       </SheetContent>
     </Sheet>
   );

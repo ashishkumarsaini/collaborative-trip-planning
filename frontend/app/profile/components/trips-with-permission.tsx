@@ -9,7 +9,7 @@ import { LucideLoader2 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export const AllTrips = () => {
+export const AllTripsWithPermissions = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [allTrips, setAllTrips] = useState<TripsData | null>(null);
 

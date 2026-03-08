@@ -26,6 +26,8 @@ export interface Activity {
   order: number,
 };
 
+export type TripUserPermissions = { _id: string; email: string; permission: string }
+
 type TripCommon = {
   _id: string,
   name: string,
@@ -34,7 +36,7 @@ type TripCommon = {
   numberOfDays: number,
   startDate: string,
   createdByUser: string,
-  addedUsersEmail?: { _id: string; email: string; permission: string }[],
+  addedUsersEmail?: TripUserPermissions[],
   requestedTraveller: User[]
   travellers: User[]
 }

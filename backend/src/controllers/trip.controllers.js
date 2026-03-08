@@ -1,13 +1,20 @@
 import mongoose from "mongoose";
 import { APIError, APIResponse, asyncHandler, RESPONSE_STATUS_CODE } from "../utils/index.js";
 import { Trip, User } from "../models/index.js";
+import { TRIP_PERMISSION } from "../validators/trip.validators.js";
 
 export const createTrip = asyncHandler(async (req, res) => {
   const tripData = req.body;
   const userId = req.user._id;
+  const userEmail = req.user.email;
 
   const [createdTrip] = await Trip.create(
-    [{ ...tripData, createdByUser: userId, travellers: [userId] }]
+    [{
+      ...tripData,
+      createdByUser: userId,
+      travellers: [userId],
+      addedUsersEmail: [{ _id: userId, email: userEmail, permission: TRIP_PERMISSION.creator }]
+    }]
   );
 
   if (!createdTrip) {

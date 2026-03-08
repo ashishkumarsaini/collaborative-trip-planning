@@ -3,9 +3,10 @@ import { Mountain, UserCircle } from "lucide-react"
 import { Button } from "../ui/button"
 import Link from "next/link"
 import { useAuth, useDrawers } from "@/lib/context";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
 export const Header = () => {
-  const { user } = useAuth();
+  const { user, onLogoutUser } = useAuth();
   const { onCreateTripDrawerToggle } = useDrawers();
 
   return (
@@ -24,7 +25,7 @@ export const Header = () => {
             </Link>
           </div>
           <div>
-            <div className="flex">
+            <div className="flex gap-4">
               {!user?._id ? (
                 <Link href='/login'>
                   <Button variant="link" className="flex gap-2">
@@ -34,12 +35,30 @@ export const Header = () => {
                 </Link>
               ) : (
                 <>
-                  <Link href='/profile'>
-                    <Button variant="link" className="flex gap-2">
-                      <UserCircle />
-                      <p>{user?.firstName}</p>
-                    </Button>
-                  </Link>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="link" className="flex gap-2">
+                        <UserCircle />
+                        <p>{user?.firstName}</p>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-40" align="start">
+                      <DropdownMenuGroup>
+                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                        <DropdownMenuItem className="cursor-pointer">
+                          <Link href='/profile'>
+                            Profile
+                          </Link>
+                        </DropdownMenuItem>
+                      </DropdownMenuGroup>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuGroup>
+                        <DropdownMenuItem className="cursor-pointer" onClick={onLogoutUser}>
+                          Log out
+                        </DropdownMenuItem>
+                      </DropdownMenuGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                   <Button onClick={() => onCreateTripDrawerToggle(true)}>Create Trip</Button>
                 </>
               )}
