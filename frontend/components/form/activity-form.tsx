@@ -7,33 +7,35 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
-import { addTripActivity } from "@/lib/services";
-import { toast } from "sonner";
 
-export const CreateActivityForm = ({ order, tripId }: { order: number, tripId: string }) => {
+type ActivityForm = {
+  onSubmit: (activityData: ActivitySchemaType) => void;
+  initialValues?: {
+    name: string,
+    description: string,
+    numberOfDays: number,
+    startDate: string,
+    location: {
+      city: string,
+      description: string
+    }
+  },
+}
+
+export const ActivityForm = ({ initialValues, onSubmit }: ActivityForm) => {
   const { control, formState, handleSubmit } = useForm<ActivitySchemaType>({
     resolver: zodResolver(activitySchema),
     defaultValues: {
-      name: '',
-      description: '',
-      numberOfDays: 1,
-      startDate: new Date(),
+      name: initialValues?.name || '',
+      description: initialValues?.description || '',
+      numberOfDays: initialValues?.numberOfDays || 1,
+      startDate: initialValues?.startDate ? new Date(initialValues.startDate) : new Date(),
       location: {
-        city: '',
-        description: ''
+        city: initialValues?.location.city || '',
+        description: initialValues?.location.description || ''
       }
     },
   });
-
-
-  const onSubmit = async (activityData: ActivitySchemaType) => {
-    const { startDate } = activityData;
-    const dateString = startDate.toISOString();
-
-    const { message } = await addTripActivity(tripId, { ...activityData, order, startDate: dateString.split('T')[0] });
-
-    toast.error(message);
-  };
 
   return (
     <form className={cn("flex flex-col gap-6")} noValidate onSubmit={handleSubmit(onSubmit)}>

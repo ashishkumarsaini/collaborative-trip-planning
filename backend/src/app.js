@@ -17,7 +17,7 @@ app.use(express.static('public'));
 app.use(cookieParser());
 app.use(
     cors({
-        origin: ['https://www.wanderscape.in', 'https://wanderscape.in'],
+        origin: process.env.CORS_ORIGIN,
         credentials: true,
         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization']

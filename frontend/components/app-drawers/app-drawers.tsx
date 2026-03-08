@@ -5,6 +5,7 @@ import { CreateTripDrawer } from "./create-trip-drawer";
 import { UpdateTripDrawer } from "./update-trip-drawer";
 import { AddTripPermissionDrawer } from "./add-trip-permission-drawer";
 import { RemoveTripPermissionDrawer } from "./remove-trip-permission-drawer";
+import { AddActivityDrawer } from "./add-activity-drawer";
 
 export const AppDrawers = () => {
   const {
@@ -16,7 +17,12 @@ export const AppDrawers = () => {
     onAddTripPermisionDrawerToggle,
     removeTripPermissionDrawerOpened,
     onRemoveTripPermissionDrawerToggle,
+    addActivityDrawerOpened,
+    onAddActivityDrawerOpenedToggle
   } = useDrawers();
+
+  console.log(addActivityDrawerOpened);
+
 
   return (
     <>
@@ -40,6 +46,14 @@ export const AppDrawers = () => {
           opened={removeTripPermissionDrawerOpened.opened}
           onClose={() => onRemoveTripPermissionDrawerToggle(false, '')}
           tripId={removeTripPermissionDrawerOpened.tripId}
+        />
+      )}
+      {addActivityDrawerOpened.tripId && (
+        <AddActivityDrawer
+          opened={addActivityDrawerOpened.opened}
+          onClose={() => onAddActivityDrawerOpenedToggle(false, 0, '')}
+          order={addActivityDrawerOpened.order}
+          tripId={addActivityDrawerOpened.tripId}
         />
       )}
     </>

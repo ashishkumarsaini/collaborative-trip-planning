@@ -4,24 +4,15 @@ import { APIError, APIResponse, asyncHandler, RESPONSE_STATUS_CODE } from "../ut
 export const registerUser = asyncHandler(async (req, res) => {
   const { firstName, lastName, email, password } = req.body;
 
-  console.log("CHECK1", { email });
   const searchedUser = await User.exists({ email });
-
-  console.log("CHECK2", { searchedUser });
 
   if (searchedUser) {
     throw new APIError(RESPONSE_STATUS_CODE.conflict, "Email already exists!");
   }
-
-  console.log("CHECK3", { searchedUser });
   const newUser = await User.create({ firstName, lastName, email, password });
-
-  console.log("CHECK4", { newUser });
   if (!newUser) {
     throw new APIError(RESPONSE_STATUS_CODE.internalServer, 'Failed to register user');
   }
-
-  console.log("CHECK5", { newUser });
   res
     .status(RESPONSE_STATUS_CODE.created)
     .json(

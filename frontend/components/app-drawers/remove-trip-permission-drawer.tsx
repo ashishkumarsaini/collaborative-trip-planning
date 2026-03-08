@@ -44,9 +44,9 @@ export const RemoveTripPermissionDrawer = ({ opened, onClose, tripId }: RemoveTr
       setTrip((prev) =>
         prev
           ? {
-              ...prev,
-              addedUsersEmail: prev.addedUsersEmail?.filter((p) => p._id !== permissionId) ?? [],
-            }
+            ...prev,
+            addedUsersEmail: prev.addedUsersEmail?.filter((p) => p._id !== permissionId) ?? [],
+          }
           : null
       );
     } catch {

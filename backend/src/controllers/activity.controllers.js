@@ -145,3 +145,27 @@ export const getActivity = asyncHandler(async (req, res) => {
     .status(RESPONSE_STATUS_CODE.ok)
     .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Activity found!", { activity }));
 });
+
+export const getTripActivities = asyncHandler(async (req, res) => {
+  const { tripId } = req.params;
+
+  if (!mongoose.isValidObjectId(tripId)) {
+    throw new APIError(RESPONSE_STATUS_CODE.badRequest, "Invalid Activity Id!");
+  }
+
+  const trip = await Trip.findById(tripId);
+
+  if (!trip) {
+    throw new APIError(RESPONSE_STATUS_CODE.notFound, 'Trip not found!');
+  }
+
+  const activities = await Activity.find({ '_id': { $in: trip.activities } });
+
+  if (!activities?.length) {
+    throw new APIError(RESPONSE_STATUS_CODE.notFound, 'Activity not found!');
+  }
+
+  return res
+    .status(RESPONSE_STATUS_CODE.ok)
+    .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Activities found!", { activities }));
+});

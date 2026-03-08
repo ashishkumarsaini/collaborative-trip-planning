@@ -7,7 +7,7 @@ export const JoinedUsers = ({ users }: { users: User[] }) => {
 
   return (
     <div className="border border-solid rounded p-4">
-      <Text size={TextSize.md}>Requested Users</Text>
+      <Text size={TextSize.md}>Joined Users</Text>
       <div className="mt-4">
         {isUserAvailable ? (
           <>

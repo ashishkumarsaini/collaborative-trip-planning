@@ -8,6 +8,18 @@ export const addTripActivity = (tripId: string, actvityData: AddActivityRequestB
   return api.post<AddActivityResponseType>(buildRequestUrl(`/${ACTIVITY_NAMESPACE}/create/${tripId}`), { body: actvityData });
 }
 
+export const updateTripActivity = (tripId: string, activityId: string, actvityData: AddActivityRequestBodyType) => {
+  return api.post<AddActivityResponseType>(buildRequestUrl(`/${ACTIVITY_NAMESPACE}/udpate/${tripId}/${activityId}`), { body: actvityData });
+}
+
 export const removeTripActivity = (tripId: string, activityId: string) => {
   return api.delete<AddActivityResponseType>(buildRequestUrl(`/${ACTIVITY_NAMESPACE}/delete/${tripId}/${activityId}`));
+}
+
+export const getActivity = (activityId: string) => {
+  return api.delete<AddActivityResponseType>(buildRequestUrl(`/${ACTIVITY_NAMESPACE}/${activityId}`));
+}
+
+export const getTripActivities = (tripId: string) => {
+  return api.delete<AddActivityResponseType>(buildRequestUrl(`/${ACTIVITY_NAMESPACE}/trip/${tripId}`));
 }

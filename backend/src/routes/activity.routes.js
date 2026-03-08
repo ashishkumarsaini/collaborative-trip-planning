@@ -2,17 +2,17 @@ import express from 'express';
 import { activityValidator } from '../validators/index.js';
 import {
   validateMiddleware,
-  verifyAdmin,
   verifyJWT,
-  verifyAdminOrSubAdmin,
-  // userCreatedTrip,
-  useLocation
+  useLocation,
+  userAllowedToEditTrip,
+  verifyTripCreator
 } from "../middlewares/index.js";
 import {
   createActivity,
   getActivity,
   updateActivity,
-  deleteActivity
+  deleteActivity,
+  getTripActivities
 } from '../controllers/index.js';
 
 const activityRouter = express.Router();
@@ -21,8 +21,7 @@ activityRouter
   .route('/create/:tripId')
   .post(
     verifyJWT,
-    verifyAdminOrSubAdmin,
-    // userCreatedTrip,
+    userAllowedToEditTrip,
     useLocation,
     activityValidator,
     validateMiddleware,
@@ -32,8 +31,7 @@ activityRouter
   .route('/update/:tripId/:activityId')
   .put(
     verifyJWT,
-    verifyAdminOrSubAdmin,
-    // userCreatedTrip,
+    userAllowedToEditTrip,
     useLocation,
     activityValidator,
     validateMiddleware,
@@ -41,9 +39,12 @@ activityRouter
   );
 activityRouter
   .route('/delete/:tripId/:activityId')
-  .delete(verifyJWT, verifyAdmin, deleteActivity);
+  .delete(verifyJWT, verifyTripCreator, deleteActivity);
 activityRouter
   .route('/:activityId')
   .get(getActivity);
+activityRouter
+  .route('/trip/:tripId')
+  .get(getTripActivities);
 
 export { activityRouter };

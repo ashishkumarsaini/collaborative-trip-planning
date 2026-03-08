@@ -11,6 +11,8 @@ interface AddDrawersContextType {
   onAddTripPermisionDrawerToggle: (shouldOpen: boolean, tripId: string) => void
   removeTripPermissionDrawerOpened: { opened: boolean, tripId: string };
   onRemoveTripPermissionDrawerToggle: (shouldOpen: boolean, tripId: string) => void;
+  addActivityDrawerOpened: { opened: boolean, order: number, tripId: string };
+  onAddActivityDrawerOpenedToggle: (shouldOpen: boolean, order: number, tripId: string) => void;
 }
 
 
@@ -23,6 +25,8 @@ const AppDrawersContext = createContext<AddDrawersContextType>({
   onAddTripPermisionDrawerToggle: () => undefined,
   removeTripPermissionDrawerOpened: { opened: false, tripId: '' },
   onRemoveTripPermissionDrawerToggle: () => undefined,
+  addActivityDrawerOpened: { opened: false, order: 0, tripId: '' },
+  onAddActivityDrawerOpenedToggle: () => undefined,
 });
 
 
@@ -31,6 +35,7 @@ export const AppDrawerProvider = ({ children }: { children: ReactNode }) => {
   const [updateTripDrawerOpened, setUpdateTripDrawerOpened] = useState<{ opened: boolean, trip?: Trip }>({ opened: false, trip: undefined });
   const [addTripPermisionDrawerOpened, setAddTripPermisionDrawerOpened] = useState<{ opened: boolean, tripId: string }>({ opened: false, tripId: '' });
   const [removeTripPermissionDrawerOpened, setRemoveTripPermissionDrawerOpened] = useState<{ opened: boolean, tripId: string }>({ opened: false, tripId: '' });
+  const [addActivityDrawerOpened, setAddActivityDrawerOpened] = useState<{ opened: boolean, order: number, tripId: string }>({ opened: false, order: 0, tripId: '' });
 
   const handleCreateTripDrawerToggle = (shouldOpen: boolean) => {
     setCreateTripDrawerOpened(shouldOpen);
@@ -48,6 +53,10 @@ export const AppDrawerProvider = ({ children }: { children: ReactNode }) => {
     setRemoveTripPermissionDrawerOpened({ opened: shouldOpen, tripId })
   }
 
+  const handleAddActivityDrawerOpenedToggle = (shouldOpen: boolean, order: number, tripId: string) => {
+    setAddActivityDrawerOpened({ opened: shouldOpen, order, tripId })
+  }
+
   const value: AddDrawersContextType = {
     createTripDrawerOpened,
     onCreateTripDrawerToggle: handleCreateTripDrawerToggle,
@@ -56,7 +65,9 @@ export const AppDrawerProvider = ({ children }: { children: ReactNode }) => {
     addTripPermisionDrawerOpened,
     onAddTripPermisionDrawerToggle: handleAddTripPermisionDrawerToggle,
     removeTripPermissionDrawerOpened,
-    onRemoveTripPermissionDrawerToggle: handleRemoveTripPermissionDrawerToggle
+    onRemoveTripPermissionDrawerToggle: handleRemoveTripPermissionDrawerToggle,
+    addActivityDrawerOpened,
+    onAddActivityDrawerOpenedToggle: handleAddActivityDrawerOpenedToggle
   };
 
   return <AppDrawersContext.Provider value={value}>{children}</AppDrawersContext.Provider>;
