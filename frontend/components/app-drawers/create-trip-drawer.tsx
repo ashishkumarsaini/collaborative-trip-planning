@@ -25,11 +25,11 @@ export const CreateTripDrawer = ({ opened, onClose }: { opened: boolean, onClose
       <SheetContent showCloseButton onClose={onClose}>
         <SheetHeader>
           <SheetTitle>Create a trip</SheetTitle>
-          <SheetDescription>
-            Fill the form below to create trip.
-            <TripForm onSubmit={onSubmit} />
-          </SheetDescription>
         </SheetHeader>
+        <SheetDescription>
+          Fill the form below to create trip.
+          <TripForm onSubmit={onSubmit} />
+        </SheetDescription>
       </SheetContent>
     </Sheet>
   )

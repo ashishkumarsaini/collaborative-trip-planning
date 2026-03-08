@@ -37,11 +37,11 @@ export const AddActivityDrawer = ({
       <SheetContent showCloseButton onClose={onClose}>
         <SheetHeader>
           <SheetTitle>Add Activity</SheetTitle>
-          <SheetDescription>
-            Fill the form below to add an activity to your trip.
-            <ActivityForm onSubmit={onSubmit} />
-          </SheetDescription>
         </SheetHeader>
+        <SheetDescription>
+          Fill the form below to add an activity to your trip.
+          <ActivityForm onSubmit={onSubmit} />
+        </SheetDescription>
       </SheetContent>
     </Sheet>
   );

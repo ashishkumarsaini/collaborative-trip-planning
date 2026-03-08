@@ -39,41 +39,41 @@ export const AddTripPermissionDrawer = ({ opened, onClose, tripId }: AddTripPerm
       <SheetContent showCloseButton onClose={onClose}>
         <SheetHeader>
           <SheetTitle>Add permission</SheetTitle>
-          <SheetDescription>
-            Grant a user access to this trip by email and role.
-            <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="user@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label>Permission</Label>
-                <Select
-                  value={permission}
-                  onValueChange={(v) => setPermission(v)}
-                >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select role" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value={PERMISSIONS.editor}>Editor</SelectItem>
-                    <SelectItem value={PERMISSIONS.creator}>Creator</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Adding…" : "Add permission"}
-              </Button>
-            </form>
-          </SheetDescription>
         </SheetHeader>
+        <SheetDescription>
+          Grant a user access to this trip by email and role.
+          <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="user@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label>Permission</Label>
+              <Select
+                value={permission}
+                onValueChange={(v) => setPermission(v)}
+              >
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select role" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={PERMISSIONS.editor}>Editor</SelectItem>
+                  <SelectItem value={PERMISSIONS.creator}>Creator</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Adding…" : "Add permission"}
+            </Button>
+          </form>
+        </SheetDescription>
       </SheetContent>
     </Sheet>
   );

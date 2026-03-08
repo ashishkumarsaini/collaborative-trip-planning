@@ -32,23 +32,23 @@ export const UpdateTripDrawer = ({ opened, onClose, trip }: UpdateTripDrawerProp
       <SheetContent showCloseButton onClose={onClose}>
         <SheetHeader>
           <SheetTitle>Update trip</SheetTitle>
-          <SheetDescription>
-            Update the trip details below.
-            {trip && (
-              <TripForm
-                key={trip._id}
-                shouldUpdate
-                initialFormValues={{
-                  name: trip.name,
-                  description: trip.description || '',
-                  startDate: trip.startDate,
-                  tripId: trip._id
-                }}
-                onSubmit={onSubmit}
-              />
-            )}
-          </SheetDescription>
         </SheetHeader>
+        <SheetDescription>
+          Update the trip details below.
+          {trip && (
+            <TripForm
+              key={trip._id}
+              shouldUpdate
+              initialFormValues={{
+                name: trip.name,
+                description: trip.description || '',
+                startDate: trip.startDate,
+                tripId: trip._id
+              }}
+              onSubmit={onSubmit}
+            />
+          )}
+        </SheetDescription>
       </SheetContent>
     </Sheet>
   )
