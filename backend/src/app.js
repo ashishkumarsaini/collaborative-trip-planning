@@ -1,6 +1,7 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import { connectDatabase } from './database/index.js';
 import {
     authRouter,
     locationRouter,
@@ -14,12 +15,25 @@ app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(express.static('public'));
 app.use(cookieParser());
-app.use(cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(
+    cors({
+        origin: process.env.CORS_ORIGIN,
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization']
+    })
+);
+
+// Ensure database connection
+app.use(async (req, res, next) => {
+    try {
+        await connectDatabase();
+        next();
+    } catch (error) {
+        console.error('Database connection error:', error);
+        res.status(500).json({ message: 'Database connection failed' });
+    }
+});
 
 // routes
 app.use('/api/auth', authRouter);
@@ -28,7 +42,7 @@ app.use('/api/activity', activityRouter);
 app.use('/api/trip', tripRouter);
 app.get('/api/health-check', (_req, res) => {
     res.status(200).json({
-        message: "✅ API IS WORKING"
+        message: '✅ API IS WORKING'
     });
 });
 
