@@ -11,19 +11,23 @@ import {
 
 const app = express();
 
-app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(express.static('public'));
 app.use(cookieParser());
-app.use(
-    cors({
-        origin: 'https://www.wanderscape.in', // your frontend URL
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization'],
-        credentials: true
-    })
-);
-app.options('*', cors());
+const corsOptions = {
+    origin: 'https://www.wanderscape.in',
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+};
+
+// Handle preflight FIRST
+app.options('*', cors(corsOptions));
+
+// Then apply to all routes
+app.use(cors(corsOptions));
+
+app.use(express.json({ limit: '16kb' }));
 
 // Ensure database connection
 app.use(async (req, res, next) => {
