@@ -1,7 +1,6 @@
-import express from 'express';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import { connectDatabase } from './database/index.js';
+const express = require('express');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 import {
     authRouter,
     locationRouter,
@@ -11,34 +10,18 @@ import {
 
 const app = express();
 
+app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(express.static('public'));
 app.use(cookieParser());
-const corsOptions = {
-    origin: 'https://www.wanderscape.in',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
-};
-
-// Handle preflight FIRST
-app.options('*', cors(corsOptions));
-
-// Then apply to all routes
-app.use(cors(corsOptions));
-
-app.use(express.json({ limit: '16kb' }));
-
-// Ensure database connection
-app.use(async (req, res, next) => {
-    try {
-        await connectDatabase();
-        next();
-    } catch (error) {
-        console.error('Database connection error:', error);
-        res.status(500).json({ message: 'Database connection failed' });
-    }
-});
+app.use(
+    cors({
+        origin: process.env.CORS_ORIGIN,
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization']
+    })
+);
 
 // routes
 app.use('/api/auth', authRouter);
