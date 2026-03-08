@@ -11,6 +11,8 @@ type RequestOptions = {
   headers?: HeadersInit;
 };
 
+import { getAccessToken } from "../storage";
+
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const buildRequestUrl = (path: string, params?: Record<string, string>) => {
@@ -35,11 +37,14 @@ export const buildRequestUrl = (path: string, params?: Record<string, string>) =
 const fetchRequest = async <T>(method: HttpMethod, path: string, options: RequestOptions = {}): Promise<T> => {
   const { headers, body } = options;
 
+  const token = getAccessToken();
+
   const fetchOptions: RequestInit = {
-    body: JSON.stringify(body),
+    body: body !== undefined ? JSON.stringify(body) : undefined,
     method,
     headers: {
       'Content-Type': 'application/json',
+      ...token && { "Authorization": `Bearer ${token}` },
       ...(headers || {}),
     },
     credentials: 'include'
