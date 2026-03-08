@@ -1,5 +1,5 @@
 'use client';
-import { Mountain, UserCircle } from "lucide-react"
+import { Mountain, Plus, UserCircle } from "lucide-react"
 import { Button } from "../ui/button"
 import Link from "next/link"
 import { useAuth, useDrawers } from "@/lib/context";
@@ -25,7 +25,7 @@ export const Header = () => {
             </Link>
           </div>
           <div>
-            <div className="flex gap-4">
+            <div className="">
               {!user?._id ? (
                 <Link href='/login'>
                   <Button variant="link" className="flex gap-2">
@@ -34,33 +34,47 @@ export const Header = () => {
                   </Button>
                 </Link>
               ) : (
-                <>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="link" className="flex gap-2">
-                        <UserCircle />
-                        <p>{user?.firstName}</p>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-40" align="start">
-                      <DropdownMenuGroup>
-                        <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                        <DropdownMenuItem className="cursor-pointer">
-                          <Link href='/profile'>
-                            Profile
-                          </Link>
-                        </DropdownMenuItem>
-                      </DropdownMenuGroup>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuGroup>
-                        <DropdownMenuItem className="cursor-pointer" onClick={onLogoutUser}>
-                          Log out
-                        </DropdownMenuItem>
-                      </DropdownMenuGroup>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                  <Button onClick={() => onCreateTripDrawerToggle(true)}>Create Trip</Button>
-                </>
+                <div className="flex gap-4 items-center">
+                  <div>
+                    <div className="hidden max-md:block">
+                      <Link href="/profile">
+                        <UserCircle className="fill-primary" />
+                      </Link>
+                    </div>
+                    <div className="hidden md:block">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="link" className="flex gap-2">
+                            <UserCircle />
+                            <p>{user?.firstName}</p>
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent className="w-40" align="start">
+                          <DropdownMenuGroup>
+                            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                            <DropdownMenuItem className="cursor-pointer">
+                              <Link href='/profile'>
+                                Profile
+                              </Link>
+                            </DropdownMenuItem>
+                          </DropdownMenuGroup>
+                          <DropdownMenuSeparator />
+                          <DropdownMenuGroup>
+                            <DropdownMenuItem className="cursor-pointer" onClick={onLogoutUser}>
+                              Log out
+                            </DropdownMenuItem>
+                          </DropdownMenuGroup>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </div>
+                  </div>
+                  <Button onClick={() => onCreateTripDrawerToggle(true)}>
+                    <span className="max-md:block inline-flex items-center">
+                      <Plus />
+                      <span className="hidden md:block ml-2">Create trip</span>
+                    </span>
+                  </Button>
+                </div>
               )}
             </div>
           </div>

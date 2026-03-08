@@ -3,18 +3,19 @@
 import { Heading, HeadingSize, Text, TextSize } from "@/components/typography";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/context";
 
 export const ProfileDetails = () => {
-  const { user } = useAuth();
+  const { user, onLogoutUser } = useAuth();
 
   if (!user) {
     return <Text>Please logged in!</Text>
   }
 
   return (
-    <>
-      <div className="border border-dashed rounded-md">
+    <div className="flex items-center flex-col gap-4">
+      <div className="border border-dashed rounded-md w-full">
         <div className="flex flex-col items-center gap-4 justify-center p-4">
           <Avatar className="p-10 bg-muted">
             <AvatarFallback className="text-2xl text-primary">{`${user.firstName.charAt(0)}${user.lastName.charAt(0)}`}</AvatarFallback>
@@ -26,6 +27,7 @@ export const ProfileDetails = () => {
           </Badge>
         </div>
       </div>
-    </>
+      <Button onClick={onLogoutUser}>Logout</Button>
+    </div>
   )
 }

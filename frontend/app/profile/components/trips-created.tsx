@@ -40,13 +40,13 @@ export const TripsCreated = () => {
     return (
       <div className="flex flex-col gap-4 border border-dashed rounded-md p-4">
         <Heading size={HeadingSize.lg}>Trips Created</Heading>
-        <div className="h-20 p-4 flex items-center justify-center">
+        <div className="h-20 p-4 flex items-center justify-center rounded bg-muted">
           <LucideLoader2 />
         </div>
-        <div className="h-20 p-4 flex items-center justify-center">
+        <div className="h-20 p-4 flex items-center justify-center rounded bg-muted">
           <LucideLoader2 />
         </div>
-        <div className="h-20 p-4 flex items-center justify-center">
+        <div className="h-20 p-4 flex items-center justify-center rounded bg-muted">
           <LucideLoader2 />
         </div>
       </div>
