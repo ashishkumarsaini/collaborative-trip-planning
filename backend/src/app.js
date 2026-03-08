@@ -17,12 +17,13 @@ app.use(express.static('public'));
 app.use(cookieParser());
 app.use(
     cors({
-        origin: process.env.CORS_ORIGIN,
-        credentials: true,
-        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization']
+        origin: 'https://www.wanderscape.in', // your frontend URL
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        credentials: true
     })
 );
+app.options('*', cors());
 
 // Ensure database connection
 app.use(async (req, res, next) => {
