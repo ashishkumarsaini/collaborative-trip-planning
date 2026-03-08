@@ -49,6 +49,7 @@
   /* custom variables */
   --spacing-desktop-header: var(--desktop-header-height);
   --spacing-mobile-header: var(--mobile-header-height);
+  --spacing-desktop-sticky-top: var(--desktop-sticky-top);
 }
 
 :root {
@@ -88,6 +89,7 @@
   /* custom variables */
   --desktop-header-height: 70px;
   --mobile-header-height: 64px;
+  --desktop-sticky-top: 90px;
 }
 
 .dark {

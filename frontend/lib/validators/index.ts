@@ -1,2 +1,2 @@
-export { signUpFormSchema, loginFormSchema } from './form-validators';
-export type { SignUpFormSchemaType, LoginFormSchemaType } from './form-validators';
+export { signUpFormSchema, loginFormSchema, tripSchema, activitySchema } from './form-validators';
+export type { SignUpFormSchemaType, LoginFormSchemaType, TripSchemaType, ActivitySchemaType } from './form-validators';

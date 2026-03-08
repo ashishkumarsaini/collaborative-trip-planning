@@ -30,13 +30,15 @@ export default function RootLayout({
         className={`${notoSans.variable} antialiased dark`}
       >
         <RootProvider>
-          <Header />
-          <main className="max-w-[1250px] m-auto">
-            <div className="border-l border-r border-dashed mt-mobile-header md:mt-desktop-header px-5">
-              {children}
-            </div>
-          </main>
-          <Footer />
+          <div className="min-h-screen flex-1">
+            <Header />
+            <main className="max-w-[1250px] m-auto">
+              <div className="border-l border-r border-dashed mt-mobile-header md:mt-desktop-header px-5">
+                {children}
+              </div>
+            </main>
+            <Footer />
+          </div>
           <Toaster />
         </RootProvider>
       </body>

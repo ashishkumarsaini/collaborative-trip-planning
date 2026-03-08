@@ -59,9 +59,16 @@ export const TripsCreated = () => {
 
   return (
     <div className="flex flex-col gap-4 border border-dashed rounded-md p-4">
-      <div className="flex items-center gap-4">
-        <Heading size={HeadingSize.lg}>Trips Created</Heading>
-        <Badge variant="outline" className="p-3"><Text size={TextSize.sm}>{total}</Text></Badge>
+      <div className="flex flex-row justify-between">
+        <div className="flex items-center gap-4">
+          <Heading size={HeadingSize.lg}>Trips Created</Heading>
+          <Badge variant="outline" className="p-3"><Text size={TextSize.sm}>{total}</Text></Badge>
+        </div>
+        <Link href='/trip/create'>
+          <Button>
+            Create New Trip
+          </Button>
+        </Link>
       </div>
       <div className="pl-4">
         <ul>
@@ -71,11 +78,11 @@ export const TripsCreated = () => {
                 <Link href={`/trip/${trip._id}`} >
                   <div className="flex justify-between items-center">
                     <Heading size={HeadingSize.md}>{trip.name}</Heading>
-                    <div>
+                    <div className="flex gap-2">
                       <Link href={`/trip/${trip._id}`}>
                         <Button>View</Button>
                       </Link>
-                      <Link href={`/trip/update/${trip._id}`}>
+                      <Link href={`/trip/${trip._id}/update`}>
                         <Button variant="outline">Update</Button>
                       </Link>
                     </div>
