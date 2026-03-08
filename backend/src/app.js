@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import { connectDatabase } from './database/index.js';
 import {
     authRouter,
     locationRouter,
@@ -22,6 +23,17 @@ app.use(
         allowedHeaders: ['Content-Type', 'Authorization']
     })
 );
+
+// Ensure database connection
+app.use(async (req, res, next) => {
+    try {
+        await connectDatabase();
+        next();
+    } catch (error) {
+        console.error('Database connection error:', error);
+        res.status(500).json({ message: 'Database connection failed' });
+    }
+});
 
 // routes
 app.use('/api/auth', authRouter);

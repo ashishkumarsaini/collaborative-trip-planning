@@ -1,57 +1,72 @@
 import mongoose from 'mongoose';
-import { TRIP_NAME_MIN_LENGTH, TRIP_NAME_MAX_LENGTH, TRIP_PERMISSION } from '../validators/index.js';
+import {
+  TRIP_NAME_MIN_LENGTH,
+  TRIP_NAME_MAX_LENGTH,
+  TRIP_PERMISSION
+} from '../validators/index.js';
 
-const tripSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    minlength: TRIP_NAME_MIN_LENGTH,
-    maxlength: TRIP_NAME_MAX_LENGTH,
-    trim: true,
-    unique: true
-  },
-  description: {
-    type: String,
-    trim: true
-  },
-  activities: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Activity'
-  }],
-  numberOfDays: {
-    type: Number,
-    default: 0
-  },
-  startDate: {
-    type: Date,
-    required: true
-  },
-  createdByUser: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
-  addedUsersEmail: [{
-    email: {
-      type: String
-    },
-    permission: {
+const tripSchema = new mongoose.Schema(
+  {
+    name: {
       type: String,
-      enum: TRIP_PERMISSION,
-      default: TRIP_PERMISSION.viewer
-    }
-  }],
-  requestedTraveller: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  }],
-  travellers: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  }]
-}, { timestamps: true });
+      required: true,
+      minlength: TRIP_NAME_MIN_LENGTH,
+      maxlength: TRIP_NAME_MAX_LENGTH,
+      trim: true,
+      unique: true
+    },
+    description: {
+      type: String,
+      trim: true
+    },
+    activities: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Activity'
+      }
+    ],
+    numberOfDays: {
+      type: Number,
+      default: 0
+    },
+    startDate: {
+      type: Date,
+      required: true
+    },
+    createdByUser: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: true
+    },
+    addedUsersEmail: [
+      {
+        email: {
+          type: String
+        },
+        permission: {
+          type: String,
+          enum: TRIP_PERMISSION,
+          default: TRIP_PERMISSION.viewer
+        }
+      }
+    ],
+    requestedTraveller: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+      }
+    ],
+    travellers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+      }
+    ]
+  },
+  { timestamps: true, bufferCommands: false }
+);
 //   if (!this.isModified('activities') || !this.isNew) {
 //     return next();
 //   }

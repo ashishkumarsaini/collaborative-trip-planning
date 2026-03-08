@@ -16,44 +16,49 @@ import {
   REFRESH_TOKEN_SECRET_EXPIRY
 } from '../libs/index.js';
 
-const userSchema = new mongoose.Schema({
-  firstName: {
-    type: String,
-    required: true,
-    trim: true,
-    minlength: FIRST_NAME_MIN_LIMIT,
-    maxlength: FIRST_NAME_MAX_LIMIT
+const userSchema = new mongoose.Schema(
+  {
+    firstName: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: FIRST_NAME_MIN_LIMIT,
+      maxlength: FIRST_NAME_MAX_LIMIT
+    },
+    lastName: {
+      type: String,
+      trim: true,
+      maxlength: LAST_NAME_MAX_LIMIT
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true,
+      index: true
+    },
+    password: {
+      type: String,
+      required: true
+    },
+    role: {
+      type: String,
+      enum: AVAILABLE_USER_ROLES,
+      default: USER_ROLE.user
+    },
+    refreshToken: {
+      type: String
+    },
+    bookedTrips: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Trip'
+      }
+    ]
   },
-  lastName: {
-    type: String,
-    trim: true,
-    maxlength: LAST_NAME_MAX_LIMIT
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true,
-    lowercase: true,
-    index: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  role: {
-    type: String,
-    enum: AVAILABLE_USER_ROLES,
-    default: USER_ROLE.user
-  },
-  refreshToken: {
-    type: String
-  },
-  bookedTrips: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Trip'
-  }]
-}, { timestamps: true });
+  { timestamps: true, bufferCommands: false }
+);
 
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
