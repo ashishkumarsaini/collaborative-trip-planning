@@ -7,6 +7,8 @@ export const connectDatabase = async () => {
   }
 
   try {
+    console.log(`✅ Mongoose database url:.${MONGODB_URI}`);
+
     await mongoose.connect(MONGODB_URI);
     console.log('✅ Mongoose database connected successfully.');
   } catch (error) {
