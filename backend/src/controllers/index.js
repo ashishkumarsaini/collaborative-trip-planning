@@ -24,5 +24,6 @@ export {
   addUserPermissionForTrip,
   removeUserPermissionForTrip,
   requestToJoinTrip,
-  acceptRequestToJoinTrip
+  acceptRequestToJoinTrip,
+  getTripsHavingPermission
 } from './trip.controllers.js';

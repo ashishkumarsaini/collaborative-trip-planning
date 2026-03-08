@@ -43,6 +43,10 @@ export const removeTripPermission = (tripId: string, permissionId: string) => {
   return api.put<CreateTripResponseType>(buildRequestUrl(`/${TRIP_NAMESPACE}/permission/remove/${tripId}/${permissionId}`));
 }
 
+export const getAllPermissionTrips = () => {
+  return api.get<TripsResponseType>(buildRequestUrl(`/${TRIP_NAMESPACE}/permission/all`));
+}
+
 export const acceptTripRequest = (tripId: string, userId: string) => {
   return api.put<CreateTripResponseType>(buildRequestUrl(`/${TRIP_NAMESPACE}/accept-request/${tripId}/${userId}`));
 }

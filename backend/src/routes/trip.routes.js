@@ -10,7 +10,8 @@ import {
   addUserPermissionForTrip,
   removeUserPermissionForTrip,
   requestToJoinTrip,
-  acceptRequestToJoinTrip
+  acceptRequestToJoinTrip,
+  getTripsHavingPermission
 } from '../controllers/index.js';
 import { tripValidator } from '../validators/trip.validators.js';
 import {
@@ -38,6 +39,7 @@ tripRouter.route('/permission/add/:tripId').put(verifyJWT, verifyTripCreator, ad
 tripRouter
   .route('/permission/remove/:tripId/:permissionId')
   .put(verifyJWT, verifyTripCreator, removeUserPermissionForTrip);
+tripRouter.route('/permission/all').get(verifyJWT, getTripsHavingPermission);
 
 // get trips
 tripRouter.route('/recommendation').get(getRecommendationTrips);

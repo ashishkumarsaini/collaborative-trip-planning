@@ -2,6 +2,7 @@
 import { Heading, HeadingSize, Text, TextSize } from "@/components/typography";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { formatDate } from "@/lib/date";
 import { getUserBookedTrips } from "@/lib/services";
 import { TripsData } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -28,7 +29,7 @@ export const TripsBooked = () => {
   if (isLoading) {
     return (
       <div className="flex flex-col gap-4 border border-dashed rounded-md p-4">
-        <Heading size={HeadingSize.lg}>Trips Booked</Heading>
+        <Heading size={HeadingSize.lg}>Trips Joined</Heading>
         <div className="h-20 p-4 flex items-center justify-center">
           <LucideLoader2 />
         </div>
@@ -45,7 +46,7 @@ export const TripsBooked = () => {
   if (!tripsBooked?.total) {
     return (
       <div className="flex flex-col gap-4 border border-dashed rounded-md p-4">
-        <Heading size={HeadingSize.lg}>Trips Booked</Heading>
+        <Heading size={HeadingSize.lg}>Trips Joined</Heading>
         <div className="h-20 p-4 flex items-center justify-center">
           <Text>No trips booked!</Text>
         </div>
@@ -58,25 +59,24 @@ export const TripsBooked = () => {
   return (
     <div className="flex flex-col gap-4 border border-dashed rounded-md p-4">
       <div className="flex items-center gap-4">
-        <Heading size={HeadingSize.lg}>Trips Booked</Heading>
-        <Badge variant="outline" className="p-3"><Text size={TextSize.sm}>{total}</Text></Badge>
+        <Heading size={HeadingSize.lg}>Trips Joined</Heading>
+        <Badge variant="outline" className="p-3"><Text size={TextSize.xxs}>{total}</Text></Badge>
       </div>
       <div className="pl-4">
         <ul>
           {
-            trips.map((trip, index) => (
-              <li key={trip._id} className={cn("py-4", { 'border-b border-primary': index })}>
-                <Link href={`/trip/${trip._id}`} >
-                  <div className="flex justify-between items-center">
-                    <Heading size={HeadingSize.md}>{trip.name}</Heading>
-                    <Link href={`/trip/${trip._id}`}>
-                      <Button>View</Button>
-                    </Link>
-                  </div>
-                  <div className="mt-4">
-                    <Text size={TextSize.xxs}>{trip.description}</Text>
-                  </div>
-                </Link>
+            trips.map((trip) => (
+              <li key={trip._id} className={cn("py-4 border border-solid rounded p-4 mt-4")}>
+                <div className="flex justify-between items-center">
+                  <Heading size={HeadingSize.md}>{trip.name}</Heading>
+                  <Link href={`/trip/${trip._id}`}>
+                    <Button variant="outline" >View</Button>
+                  </Link>
+                </div>
+                <div className="mt-4">
+                  <Text size={TextSize.xxs} className="capitalize">{trip.description}</Text>
+                  <Text size={TextSize.xxs} className="mt-2">{formatDate(trip.startDate)}</Text>
+                </div>
               </li>
             ))
           }

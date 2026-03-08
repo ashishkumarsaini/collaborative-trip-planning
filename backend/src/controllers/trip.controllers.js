@@ -112,6 +112,19 @@ export const getCreatedTrips = asyncHandler(async (req, res) => {
     .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Trips found!", { trips, total: trips.length }));
 });
 
+export const getTripsHavingPermission = asyncHandler(async (req, res) => {
+  const userEmail = req.user.email;
+
+  const trips = await Trip.find({ 'addedUsersEmail.email': userEmail });
+
+  if (!trips) {
+    throw new APIError(RESPONSE_STATUS_CODE.notFound, "No trips found!");
+  }
+
+  return res.status(RESPONSE_STATUS_CODE.ok)
+    .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Trips found!", { trips }));
+});
+
 export const getBookedTrips = asyncHandler(async (req, res) => {
   const user = req.user;
 
@@ -157,6 +170,34 @@ export const addUserPermissionForTrip = asyncHandler(async (req, res) => {
     .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Permission Added!", { trip: updatedTrip }));
 
 });
+
+// TODO: update permission
+// export const updateUserPermissionForTrip = asyncHandler(async (req, res) => {
+//   const { tripId, permissionId } = req.params;
+
+//   const {email, permission } = req.body;
+
+//   if (!mongoose.isValidObjectId(tripId)) {
+//     throw new APIError(RESPONSE_STATUS_CODE.badRequest, "Invalid Trip Id!");
+//   }
+
+//   const updatedTrip = await Trip.updateOne(
+//     { _id: tripId, 'addedUsersEmail.permission'}
+//     {
+//       $pull:
+//         { addedUsersEmail: { _id: permissionId } }
+//     }, { returnDocument: 'after' }
+//   );
+
+//   if (!updatedTrip) {
+//     throw new APIError(RESPONSE_STATUS_CODE.notFound, "Unable to remove permission!");
+//   }
+
+//   return res
+//     .status(RESPONSE_STATUS_CODE.ok)
+//     .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Permission Removed!", { trip: updatedTrip }));
+
+// });
 
 export const removeUserPermissionForTrip = asyncHandler(async (req, res) => {
   const { tripId, permissionId } = req.params;
