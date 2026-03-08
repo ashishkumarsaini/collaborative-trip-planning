@@ -27,6 +27,10 @@ export const createTrip = (tripData: CreateTripRequestBodyType) => {
   return api.post<CreateTripResponseType>(buildRequestUrl(`/${TRIP_NAMESPACE}/create`), { body: tripData });
 }
 
+export const updateTrip = (tripId: string, tripData: CreateTripRequestBodyType) => {
+  return api.put<CreateTripResponseType>(buildRequestUrl(`/${TRIP_NAMESPACE}/update/${tripId}`), { body: tripData });
+}
+
 export const deleteTrip = (tripId: string) => {
   return api.delete<CreateTripResponseType>(buildRequestUrl(`/${TRIP_NAMESPACE}/delete/${tripId}`));
 }

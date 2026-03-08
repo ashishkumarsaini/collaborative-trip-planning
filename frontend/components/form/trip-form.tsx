@@ -7,44 +7,65 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
-import { createTrip } from "@/lib/services";
+import { createTrip, updateTrip } from "@/lib/services";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
 
-export const CreateTripForm = () => {
+interface TripForm {
+  shouldUpdate?: boolean,
+  initialFormValues?: {
+    name: string,
+    description?: string,
+    startDate: string,
+    tripId: string
+  }
+}
+
+export const TripForm = ({ shouldUpdate, initialFormValues }: TripForm) => {
   const { control, formState, handleSubmit } = useForm<TripSchemaType>({
     resolver: zodResolver(tripSchema),
     defaultValues: {
-      name: '',
-      description: '',
-      startDate: new Date(),
-    },
+      name: initialFormValues?.name || '',
+      description: initialFormValues?.description || '',
+      startDate: initialFormValues?.startDate ? new Date(initialFormValues.startDate) : new Date()
+    }
   });
 
 
   const onSubmit = async (tripInputData: TripSchemaType) => {
     const { startDate } = tripInputData;
     const dateString = startDate.toISOString();
+    let response;
 
-    const { data, message } = await createTrip({ ...tripInputData, startDate: dateString.split('T')[0] });
+    if (shouldUpdate) {
+      response = await updateTrip(initialFormValues?.tripId || '', { ...tripInputData, startDate: dateString.split('T')[0] });
+    } else {
+      response = await createTrip({ ...tripInputData, startDate: dateString.split('T')[0] });
+    }
+
+    const { message, data } = response
 
     if (!data.trip) {
       toast.error(message);
     }
 
-    const tripId = data.trip._id
-    redirect(`/trip/${tripId}/update`);
+    if (!shouldUpdate) {
+      const tripId = data.trip._id
+      redirect(`/trip/${tripId}/update`);
+    }
   };
 
   return (
     <form className={cn("flex flex-col gap-6")} noValidate onSubmit={handleSubmit(onSubmit)}>
       <FieldGroup>
-        <div className="flex flex-col items-center gap-1 text-center">
-          <h1 className="text-2xl font-bold">Create a trip</h1>
-          <p className="text-muted-foreground text-sm text-balance">
-            Fill in the form below to create your trip
-          </p>
-        </div>
+        {!shouldUpdate && (
+          <div className="flex flex-col items-center gap-1 text-center">
+            <h1 className="text-2xl font-bold">Create a trip</h1>
+            <p className="text-muted-foreground text-sm text-balance">
+              Fill in the form below to create your trip
+            </p>
+          </div>
+        )}
         <Controller
           name="name"
           control={control}
@@ -88,7 +109,7 @@ export const CreateTripForm = () => {
           )}
         />
         <Field>
-          <Button type="submit" disabled={formState.isLoading}>Create Trip</Button>
+          <Button type="submit" disabled={formState.isLoading}>{shouldUpdate ? 'Update Trip' : 'Create Trip'}</Button>
         </Field>
       </FieldGroup>
     </form>

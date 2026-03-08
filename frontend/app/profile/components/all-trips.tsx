@@ -65,7 +65,7 @@ export const AllTrips = () => {
         <ul>
           {
             trips.map((trip, index) => (
-              <li key={trip._id} className={cn("py-4", { 'border-b border-primary': index })}>
+              <li key={trip._id} className={cn("py-4 border-b border-primary", { 'border-none': index === trips.length - 1 })}>
                 <Link href={`/trip/${trip._id}`} >
                   <div className="flex justify-between items-center">
                     <Heading size={HeadingSize.md}>{trip.name}</Heading>
