@@ -25,7 +25,7 @@ export const userAllowedToEditTrip = asyncHandler(async (req, _res, next) => {
     .addedUsersEmail
     .find((user) => user.email === userEmail && user.permission === TRIP_PERMISSION.editor);
 
-  if (!isCreatedUser || !isUserAllowedToUpdate) {
+  if (!isCreatedUser && !isUserAllowedToUpdate) {
     throw new APIError(RESPONSE_STATUS_CODE.notFound, "Unauthorized user for this trip!");
   }
 

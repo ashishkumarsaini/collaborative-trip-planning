@@ -1,20 +1,31 @@
 import mongoose from "mongoose";
 import { APIError, APIResponse, asyncHandler, RESPONSE_STATUS_CODE } from "../utils/index.js";
-import { Trip } from "../models/trip.model.js";
+import { Trip, User } from "../models/index.js";
 
 export const createTrip = asyncHandler(async (req, res) => {
   const tripData = req.body;
   const userId = req.user._id;
 
-  const createdTrip = await Trip.create({ ...tripData, createdByUser: userId });
+  const [createdTrip] = await Trip.create(
+    [{ ...tripData, createdByUser: userId, travellers: [userId] }]
+  );
 
   if (!createdTrip) {
+    throw new APIError(RESPONSE_STATUS_CODE.internalServer, "Unable to create trip!");
+  }
+
+  const user = await User.findByIdAndUpdate(userId, {
+    $push: { bookedTrips: createdTrip._id }
+  });
+
+  if (!user) {
     throw new APIError(RESPONSE_STATUS_CODE.internalServer, "Unable to create trip!");
   }
 
   return res
     .status(RESPONSE_STATUS_CODE.ok)
     .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Trip Created!", { trip: createdTrip }));
+
 });
 
 export const updateTrip = asyncHandler(async (req, res) => {
@@ -69,7 +80,7 @@ export const getTrip = asyncHandler(async (req, res) => {
       populate: [
         { path: 'location', model: 'Location' }
       ]
-    });
+    }).populate('requestedTraveller').populate('travellers');
 
   return res
     .status(RESPONSE_STATUS_CODE.ok)
@@ -163,4 +174,89 @@ export const removeUserPermissionForTrip = asyncHandler(async (req, res) => {
     .status(RESPONSE_STATUS_CODE.ok)
     .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Permission Removed!", { trip: updatedTrip }));
 
+});
+
+export const requestToJoinTrip = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
+  const { tripId } = req.params;
+
+  if (!mongoose.isValidObjectId(tripId)) {
+    throw new APIError(RESPONSE_STATUS_CODE.badRequest, "Invalid Trip Id!");
+  }
+
+  const trip = await Trip.findById(tripId);
+
+  const isUserRequested = trip.requestedTraveller.some((requestedUserId) => requestedUserId.equals(userId));
+
+  if (isUserRequested) {
+    throw new APIError(RESPONSE_STATUS_CODE.notFound, "Already requested");
+  }
+
+  const isAlreadyAccepted = trip.travellers.some((acceptedUserId) => acceptedUserId.equals(userId));
+
+  if (isAlreadyAccepted) {
+    throw new APIError(RESPONSE_STATUS_CODE.notFound, "Request already accepted.");
+  }
+
+  const updatedTrip = await Trip.findByIdAndUpdate(
+    tripId,
+    {
+      $push: { requestedTraveller: userId }
+    }, { returnDocument: 'after' }
+  );
+
+  if (!updatedTrip) {
+    throw new APIError(RESPONSE_STATUS_CODE.notFound, "Unable to request join!");
+  }
+
+  return res
+    .status(RESPONSE_STATUS_CODE.ok)
+    .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Request Sent!", { trip: updatedTrip }));
+});
+
+// TODO: add mongoose session
+export const acceptRequestToJoinTrip = asyncHandler(async (req, res) => {
+  const { tripId, userId } = req.params;
+
+  if (!mongoose.isValidObjectId(tripId) || !mongoose.isValidObjectId(userId)) {
+    throw new APIError(RESPONSE_STATUS_CODE.badRequest, "Invalid Trip Id!");
+  }
+
+  const trip = await Trip.findById(tripId);
+
+  const isUserRequested = trip.requestedTraveller.some((requestedUserId) => requestedUserId.equals(userId));
+
+  if (!isUserRequested) {
+    throw new APIError(RESPONSE_STATUS_CODE.notFound, "Please request first.");
+  }
+
+  const isAlreadyAccepted = trip.travellers.some((acceptedUserId) => acceptedUserId.equals(userId));
+
+  if (isAlreadyAccepted) {
+    throw new APIError(RESPONSE_STATUS_CODE.notFound, "Request already accepted.");
+  }
+
+  const updatedTrip = await Trip.findByIdAndUpdate(
+    tripId,
+    {
+      $push: { travellers: userId },
+      $pull: { requestedTraveller: userId }
+    }, { returnDocument: 'after' }
+  );
+
+  if (!updatedTrip) {
+    throw new APIError(RESPONSE_STATUS_CODE.notFound, "Unable to accept request!");
+  }
+
+  const user = await User.findByIdAndUpdate(userId, {
+    $push: { bookedTrips: updatedTrip._id }
+  });
+
+  if (!user) {
+    throw new APIError(RESPONSE_STATUS_CODE.internalServer, "Unable to create trip!");
+  }
+
+  return res
+    .status(RESPONSE_STATUS_CODE.ok)
+    .json(new APIResponse(RESPONSE_STATUS_CODE.ok, "Request Accpeted!", { trip: updatedTrip }));
 });

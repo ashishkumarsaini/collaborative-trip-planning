@@ -10,7 +10,7 @@ interface ActivityTimeline {
 export const ActivityTimeline: FC<ActivityTimeline> = ({ activities = [] }) => {
   const isActivitiesAvaiable = activities.length;
   return (
-    <div className="mt-5 border border-dashed rounded-md py-5 px-3 md:px-5 mg:px-10 lg:px-20">
+    <div className="border border-solid rounded-md py-5 px-3 md:px-5 mg:px-10 lg:px-20">
       <Heading level={HeadingLevel.h2} size={HeadingSize.lg}>Activities</Heading>
       {isActivitiesAvaiable ? (
         <div className="mt-5 border-l border-primary md:mx-5">

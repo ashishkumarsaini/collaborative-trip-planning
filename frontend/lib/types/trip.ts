@@ -1,8 +1,8 @@
 import { ActivitySchemaType } from "../validators";
 import { APIResponseType } from "./api";
+import { User } from "./user";
 
 export enum PERMISSIONS {
-  viewer = 'viewer',
   editor = 'editor',
   creator = 'creator',
 };
@@ -35,6 +35,8 @@ type TripCommon = {
   startDate: string,
   createdByUser: string,
   addedUsersEmail?: { _id: string; email: string; permission: string }[],
+  requestedTraveller: User[]
+  travellers: User[]
 }
 
 export type Trip = {

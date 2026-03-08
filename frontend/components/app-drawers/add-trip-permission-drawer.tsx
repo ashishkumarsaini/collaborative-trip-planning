@@ -18,24 +18,20 @@ interface AddTripPermissionDrawerProps {
 
 export const AddTripPermissionDrawer = ({ opened, onClose, tripId }: AddTripPermissionDrawerProps) => {
   const [email, setEmail] = useState("");
-  const [permission, setPermission] = useState<string>(PERMISSIONS.viewer);
+  const [permission, setPermission] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
     setIsSubmitting(true);
-    try {
-      const response = await addTripPermission(tripId, { email: email.trim(), permission });
-      toast.success(response.message);
-      setEmail("");
-      setPermission(PERMISSIONS.viewer);
-      onClose();
-    } catch {
-      toast.error("Failed to add permission");
-    } finally {
-      setIsSubmitting(false);
-    }
+
+    const response = await addTripPermission(tripId, { email: email.trim(), permission });
+    toast.success(response.message);
+
+    setEmail("");
+    setPermission(PERMISSIONS.editor);
+    onClose();
   };
 
   return (
@@ -69,7 +65,6 @@ export const AddTripPermissionDrawer = ({ opened, onClose, tripId }: AddTripPerm
                 <SelectValue placeholder="Select role" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value={PERMISSIONS.viewer}>Viewer</SelectItem>
                 <SelectItem value={PERMISSIONS.editor}>Editor</SelectItem>
                 <SelectItem value={PERMISSIONS.creator}>Creator</SelectItem>
               </SelectContent>

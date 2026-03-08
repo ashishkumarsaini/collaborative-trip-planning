@@ -41,6 +41,11 @@ const tripSchema = new mongoose.Schema({
       default: TRIP_PERMISSION.viewer
     }
   }],
+  requestedTraveller: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  }],
   travellers: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',

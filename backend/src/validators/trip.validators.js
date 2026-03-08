@@ -22,8 +22,7 @@ const startDateValidator = body('startDate')
 
 export const TRIP_PERMISSION = Object.freeze({
   creator: 'creator',
-  editor: 'editor',
-  viewer: 'viewer'
+  editor: 'editor'
 });
 
 export const tripValidator = [
