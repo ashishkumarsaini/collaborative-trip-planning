@@ -14,7 +14,7 @@ export const TripPageComponent = ({ trip }: { trip: TripWithActivity }) => {
   return (
     <div className="grid grid-cols-12 gap-4 mt-5">
       <div className={cn("col-span-12", { 'col-span-12 lg:col-span-8': isTripCreatedByUser })}>
-        <ActivityTimeline activities={trip.activities} tripId={trip._id} usersHavePermission={trip.addedUsersEmail} />
+        <ActivityTimeline trip={trip} />
       </div>
       {isTripCreatedByUser && (
         <div className="col-span-12 lg:col-span-4">

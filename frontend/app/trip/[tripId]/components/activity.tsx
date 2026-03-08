@@ -2,20 +2,24 @@
 import { UpdateActivityDrawer } from "@/components/app-drawers";
 import { Text, TextSize } from "@/components/typography"
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/lib/context";
 import { formatDate } from "@/lib/date";
 import { removeTripActivity } from "@/lib/services";
-import { Activity } from "@/lib/types";
+import { Activity, TripWithActivity } from "@/lib/types";
 import { Edit, Trash2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
-export const ActivityDetails = ({ activity, tripId, index }: { activity: Activity, tripId: string, index: number }) => {
+export const ActivityDetails = ({ activity, trip, index }: { activity: Activity, trip: TripWithActivity, index: number }) => {
   const [openUpdateActivity, setOpenUpdateActivity] = useState(false); // TODO: can be move into app drawers
   const startDate = formatDate(activity.startDate);
   const endDate = formatDate(activity.endDate);
+  const { user } = useAuth();
+
+  const isTripCreatedByUser = user?._id === trip.createdByUser
 
   const handleDeleteActitivity = async () => {
-    const { message } = await removeTripActivity(tripId, activity._id);
+    const { message } = await removeTripActivity(trip._id, activity._id);
     toast.message(message);
   }
 
@@ -29,10 +33,12 @@ export const ActivityDetails = ({ activity, tripId, index }: { activity: Activit
               <div className="border-r border-primary border-dashed px-3 py-1">Activity {index}</div>
               <div className="px-3 py-1 capitalize">{activity.location.city}</div>
             </div>
-            <div className="flex gap-2">
-              <Button onClick={() => setOpenUpdateActivity(true)}><Edit /></Button>
-              <Button onClick={handleDeleteActitivity}><Trash2 /></Button>
-            </div>
+            {isTripCreatedByUser && (
+              <div className="flex gap-2">
+                <Button onClick={() => setOpenUpdateActivity(true)}><Edit /></Button>
+                <Button onClick={handleDeleteActitivity}><Trash2 /></Button>
+              </div>
+            )}
           </div>
           <div className="mt-2 flex flex-col gap-5">
             <Text className="capitalize" size={TextSize.lg}>{activity.name}</Text>
@@ -44,7 +50,7 @@ export const ActivityDetails = ({ activity, tripId, index }: { activity: Activit
           </div>
         </div>
       </div>
-      <UpdateActivityDrawer opened={openUpdateActivity} onClose={() => setOpenUpdateActivity(false)} activity={activity} tripId={tripId} />
+      {isTripCreatedByUser && <UpdateActivityDrawer opened={openUpdateActivity} onClose={() => setOpenUpdateActivity(false)} activity={activity} tripId={trip._id} />}
     </>
   )
 }
