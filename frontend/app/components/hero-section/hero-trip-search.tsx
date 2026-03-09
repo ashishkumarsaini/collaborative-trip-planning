@@ -51,7 +51,7 @@ export const HeroTripSearch = () => {
               </Field>
             </div>
             <div className=" col-span-4 px-5 gap-2 py-5 flex items-center justify-center">
-              <Link href='/trips' className="w-full">
+              <Link href='/all' className="w-full">
                 <Button type="submit" className="w-full" size="lg">
                   <Search />
                   Search
