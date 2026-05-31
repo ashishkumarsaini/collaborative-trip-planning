@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { Trip } from "@/lib/types";
 import { LucideLoader2 } from "lucide-react";
+import { Text, TextSize } from "../typography";
 
 interface RemoveTripPermissionDrawerProps {
   opened: boolean;
@@ -72,7 +73,7 @@ export const RemoveTripPermissionDrawer = ({ opened, onClose, tripId }: RemoveTr
                 <LucideLoader2 className="size-8 animate-spin text-muted-foreground" />
               </div>
             ) : permissions.length === 0 ? (
-              <p className="text-muted-foreground text-sm">No permissions added yet.</p>
+              <Text size={TextSize.xxs} className="text-muted-foreground">No permissions added yet.</Text>
             ) : (
               <ul className="space-y-2">
                 {permissions.map((p) => (

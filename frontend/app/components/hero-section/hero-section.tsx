@@ -1,20 +1,24 @@
-import { Heading, HeadingSize, Text } from "@/components/typography"
-import { Badge } from "@/components/ui/badge"
+import { Heading, HeadingLevel, HeadingSize, Text, TextSize } from "@/components/typography"
 import { HeroTripSearch } from "./hero-trip-search"
 
 // <div className="bg-[url(https://images.unsplash.com/photo-1486046866764-e426b5b93d98)] bg-cover h-screen mask-b-from-50% mask-b-to-90%">
 
 export const HeroSection = () => {
   return (
-    <section className="py-20 lg:py-30">
-      <div className="flex flex-col items-center justify-center gap-10">
-        <div className="flex flex-col items-center gap-5">
-          <Badge variant="default">Get 20% discount today!</Badge>
-          <Heading size={HeadingSize.xxl} className="text-center capitalize max-w-3xl lg:leading-20">
-            Discover the magic in every destination with us!
-          </Heading>
-        </div>
-        <Text className="text-center">Enjoy exclusive offers and best prices for satisfying travel packages.</Text>
+    <section className="relative -mt-mobile-header flex min-h-[620px] items-center justify-center overflow-hidden sm:min-h-[700px] md:-mt-desktop-header lg:min-h-[760px]">
+      <img
+        src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=2200&q=85"
+        alt="Misty mountain lake with a wooden pier"
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/5 via-background/30 to-background" />
+      <div className="serene-shell relative z-10 pt-24 text-center md:pt-28">
+        <Heading level={HeadingLevel.h1} size={HeadingSize.xxl}>
+          Plan your next adventure, <span className="text-primary">effortlessly.</span>
+        </Heading>
+        <Text className="mx-auto mt-5 max-w-2xl" size={TextSize.md}>
+          Beautifully collaborative itineraries for people who love to explore without the stress of spreadsheets.
+        </Text>
         <HeroTripSearch />
       </div>
     </section>

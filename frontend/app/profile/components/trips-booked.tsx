@@ -1,87 +1,52 @@
 'use client';
-import { Heading, HeadingSize, Text, TextSize } from "@/components/typography";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { formatDate } from "@/lib/date";
+
+import { Loader2 } from "lucide-react";
+import { Heading, HeadingLevel, HeadingSize } from "@/components/typography";
 import { getUserBookedTrips } from "@/lib/services";
 import { TripsData } from "@/lib/types";
-import { cn } from "@/lib/utils";
-import { LucideLoader2 } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import { TripList } from "./trips-created";
 
 export const TripsBooked = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [tripsBooked, setTripsBooked] = useState<TripsData | null>(null);
 
-  const handleLoadBookedTrips = async () => {
-    const { data } = await getUserBookedTrips();
-    setTripsBooked(data);
-    setIsLoading(false);
-  }
-
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setIsLoading(true);
-    handleLoadBookedTrips();
+    let mounted = true;
+
+    void (async () => {
+      const { data } = await getUserBookedTrips();
+      if (!mounted) return;
+      setTripsBooked(data);
+      setIsLoading(false);
+    })();
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   if (isLoading) {
     return (
-      <div className="flex flex-col gap-4 border border-dashed rounded-md p-4">
-        <Heading size={HeadingSize.lg}>Trips Joined</Heading>
-        <div className="h-20 p-4 flex items-center justify-center rounded bg-muted">
-          <LucideLoader2 />
+      <section>
+        <Heading level={HeadingLevel.h3} size={HeadingSize.lg} className="mb-4">Joined Trips</Heading>
+        <div className="serene-panel grid h-32 place-items-center rounded-[1.5rem]">
+          <Loader2 className="animate-spin text-primary" />
         </div>
-        <div className="h-20 p-4 flex items-center justify-center rounded bg-muted">
-          <LucideLoader2 />
-        </div>
-        <div className="h-20 p-4 flex items-center justify-center rounded bg-muted">
-          <LucideLoader2 />
-        </div>
-      </div>
-    )
+      </section>
+    );
   }
 
-  if (!tripsBooked?.total) {
+  const trips = tripsBooked?.trips || [];
+
+  if (!trips.length) {
     return (
-      <div className="flex flex-col gap-4 border border-dashed rounded-md p-4">
-        <Heading size={HeadingSize.lg}>Trips Joined</Heading>
-        <div className="h-20 p-4 flex items-center justify-center">
-          <Text>No trips booked!</Text>
-        </div>
-      </div>
-    )
+      <section>
+        <Heading level={HeadingLevel.h3} size={HeadingSize.lg} className="mb-4">Joined Trips</Heading>
+        <div className="serene-panel rounded-[1.5rem] p-8 text-muted-foreground">No trips joined yet.</div>
+      </section>
+    );
   }
 
-  const { trips, total } = tripsBooked;
-
-  return (
-    <div className="flex flex-col gap-4 border border-dashed rounded-md p-4">
-      <div className="flex items-center gap-4">
-        <Heading size={HeadingSize.lg}>Trips Joined</Heading>
-        <Badge variant="outline" className="p-3"><Text size={TextSize.xxs}>{total}</Text></Badge>
-      </div>
-      <div className="pl-4">
-        <ul>
-          {
-            trips.map((trip) => (
-              <li key={trip._id} className={cn("py-4 border border-solid rounded p-4 mt-4")}>
-                <div className="flex justify-between items-center">
-                  <Heading size={HeadingSize.md}>{trip.name}</Heading>
-                  <Link href={`/trip/${trip._id}`}>
-                    <Button variant="outline" >View</Button>
-                  </Link>
-                </div>
-                <div className="mt-4">
-                  <Text size={TextSize.xxs} className="capitalize">{trip.description}</Text>
-                  <Text size={TextSize.xxs} className="mt-2">{formatDate(trip.startDate)}</Text>
-                </div>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </div>
-  )
-}
+  return <TripList title="Joined Trips" trips={trips} />;
+};

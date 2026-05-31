@@ -10,6 +10,7 @@ import {
   FieldLabel,
   FieldSeparator,
 } from "@/components/ui/field";
+import { Heading, HeadingLevel, HeadingSize, Text, TextSize } from "@/components/typography";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { Controller, useForm } from "react-hook-form";
@@ -58,10 +59,10 @@ export const SignupForm = () => {
     <form className={cn("flex flex-col gap-6")} noValidate onSubmit={handleSubmit(onSubmit)}>
       <FieldGroup>
         <div className="flex flex-col items-center gap-1 text-center">
-          <h1 className="text-2xl font-bold">Create your account</h1>
-          <p className="text-muted-foreground text-sm text-balance">
+          <Heading level={HeadingLevel.h1} size={HeadingSize.lg}>Create your account</Heading>
+          <Text size={TextSize.xxs} className="text-muted-foreground text-balance">
             Fill in the form below to create your account
-          </p>
+          </Text>
         </div>
         <Controller
           name="firstName"

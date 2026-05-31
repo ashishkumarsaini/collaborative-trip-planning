@@ -13,9 +13,10 @@ type RequestOptions = {
 
 import { getAccessToken } from "../storage";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export const buildRequestUrl = (path: string, params?: Record<string, string>) => {
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
   const base = path.startsWith('http') ? path : `${API_BASE_URL}${path}`;
 
   if (!params) {

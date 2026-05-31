@@ -1,7 +1,7 @@
 'use client';
 import { TripCard } from '@/components/trip-card';
 import { Carousel } from '@/components/carousel';
-import { Heading, HeadingLevel, HeadingSize } from "@/components/typography";
+import { Heading, HeadingLevel, HeadingSize, Text } from "@/components/typography";
 import { Trip } from '@/lib/types';
 import { ReactNode } from 'react';
 import { useUserTrips } from '@/lib/context/user-trips-provider';
@@ -31,10 +31,15 @@ export const ExploreSection = () => {
   };
 
   return (
-    <section className="py-20 lg:py-30">
-      <Heading level={HeadingLevel.h2} size={HeadingSize.xxl} className="capitalize max-w-2xl lg:leading-20">
-        Dive into the beauty of the world
-      </Heading>
+    <section className="serene-shell py-12 sm:py-16">
+      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-6">
+        <div>
+          <Heading level={HeadingLevel.h2} size={HeadingSize.xl}>
+            Dive into the beauty of the world
+          </Heading>
+          <Text className="mt-2 text-sm text-muted-foreground">Curated by our community of expert explorers.</Text>
+        </div>
+      </div>
       <Carousel items={data?.trips || [1, 2, 3, 4, 5, 6]} renderSlide={renderSlide} />
     </section>
   )

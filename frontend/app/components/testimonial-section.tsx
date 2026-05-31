@@ -1,53 +1,25 @@
 import { Heading, HeadingLevel, HeadingSize, Text, TextSize } from "@/components/typography";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import testimonialsData from '@/mocks/testimonials.json'
-import { Quote } from "lucide-react";
+import { Star } from "lucide-react";
 
 export const TestimonialSection = () => {
   return (
-    <section className="py-20 lg:py-30">
-      <div className="flex flex-col items-center justify-center gap-5">
-        <Badge className="bg-primary">Testimonials</Badge>
-        <Heading level={HeadingLevel.h2} size={HeadingSize.xxl} className="capitalize text-center max-w-3xl lg:leading-20">
-          Joined hundreds of satisfied customers
-        </Heading>
-        <Text>
-          Start planning your next adventure!
-        </Text>
-        <div className="mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
-          {testimonialsData.testimonials.map((testimonial) => (
-            <Card className="p-5 rounded justify-between" key={testimonial.id}>
-              <CardHeader>
-                <CardTitle>
-                  <div className="flex justify-between">
-                    <Quote className="fill-primary" />
-                    <Text size={TextSize.xxs}>{testimonial.rating}/5</Text>
-                  </div>
-                </CardTitle>
-                <CardDescription>
-                  <Text size={TextSize.xs}>
-                    {testimonial.message}
-                  </Text>
-                </CardDescription>
-              </CardHeader>
-              <CardFooter>
-                <div className="flex gap-3 items-center">
-                  <div>
-                    <Avatar>
-                      <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>
-                    </Avatar>
-                  </div>
-                  <div>
-                    <Text size={TextSize.xxs}>{testimonial.name}</Text>
-                    <Text size={TextSize.xxs}>{testimonial.location}</Text>
-                  </div>
-                </div>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
+    <section className="serene-shell py-12 sm:py-16">
+      <Heading level={HeadingLevel.h3} size={HeadingSize.md} className="text-center">Trusted by 50,000+ Explorers</Heading>
+      <div className="mt-8 grid gap-4 sm:mt-10 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+        {testimonialsData.testimonials.map((testimonial) => (
+          <article key={testimonial.name} className="rounded-[1.25rem] bg-[#fbebe3] p-5 sm:rounded-[1.5rem] sm:p-7">
+            <div className="flex gap-1 text-primary">{Array.from({ length: 5 }).map((_, index) => <Star key={index} className="size-4" />)}</div>
+            <Text size={TextSize.xs} className="mt-5">&quot;{testimonial.message}&quot;</Text>
+            <div className="mt-6 flex items-center gap-3">
+              <div className="grid size-10 place-items-center rounded-full bg-primary text-white">{testimonial.name.charAt(0)}</div>
+              <div>
+                <Text size={TextSize.xxs} className="font-bold">{testimonial.name}</Text>
+                <Text size={TextSize.xxs} className="uppercase text-muted-foreground">{testimonial.location}</Text>
+              </div>
+            </div>
+          </article>
+        ))}
       </div>
     </section>
   );

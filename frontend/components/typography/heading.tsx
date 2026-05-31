@@ -20,7 +20,7 @@ export enum HeadingLevel {
   h5 = 'h5',
 }
 
-const headingVariants = cva('font-medium tracking-wide', {
+const headingVariants = cva('font-bold tracking-wide', {
   variants: {
     size: {
       [HeadingSize.xxl]: 'text-3xl lg:text-6xl',
