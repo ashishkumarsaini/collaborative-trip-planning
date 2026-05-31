@@ -11,30 +11,37 @@ import {
 
 const app = express();
 
-const corsOrigins = (process.env.CORS_ORIGIN || 'http://localhost:3000')
-    .split(',')
-    .map((origin) => origin.trim())
-    .filter(Boolean);
+// const corsOrigins = (process.env.CORS_ORIGIN || 'http://localhost:3000')
+//     .split(',')
+//     .map((origin) => origin.trim())
+//     .filter(Boolean);
 
-const corsOptions = {
-    origin(origin, callback) {
-        if (!origin || corsOrigins.includes('*') || corsOrigins.includes(origin)) {
-            callback(null, true);
-            return;
-        }
+// const corsOptions = {
+//     origin(origin, callback) {
+//         if (!origin || corsOrigins.includes('*') || corsOrigins.includes(origin)) {
+//             callback(null, true);
+//             return;
+//         }
 
-        callback(new Error(`Origin ${origin} is not allowed by CORS`));
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-};
+//         callback(new Error(`Origin ${origin} is not allowed by CORS`));
+//     },
+//     credentials: true,
+//     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+//     allowedHeaders: ['Content-Type', 'Authorization']
+// };
 
 app.use(express.json({ limit: '16kb' }));
 app.use(express.urlencoded({ extended: true, limit: '16kb' }));
 app.use(express.static('public'));
 app.use(cookieParser());
-app.use(cors(corsOptions));
+app.use(
+    cors({
+        origin: process.env.CORS_ORIGIN,
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization']
+    })
+);
 
 // Ensure database connection
 app.use(async (req, res, next) => {
