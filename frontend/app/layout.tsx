@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Sans } from 'next/font/google';
+import type { ReactNode } from "react";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
@@ -7,36 +7,24 @@ import { Toaster } from "@/components/ui/sonner";
 import { RootProvider } from "@/lib/context";
 import { AppDrawers } from "@/components/app-drawers";
 
-
-// Configure the font
-const notoSans = Noto_Sans({
-  subsets: ['latin'],
-  weight: ['400', '600', '700', '800'],
-  variable: '--font-noto',
-});
-
 export const metadata: Metadata = {
-  title: "Wanderscape",
-  description: "Book your trip today!",
+  title: "WanderScape",
+  description: "Collaborative trip planning for effortless exploration.",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${notoSans.variable} no-scrollbar`}>
-      <body
-        className={`${notoSans.variable} antialiased dark`}
-      >
+    <html lang="en" className="no-scrollbar">
+      <body className="antialiased">
         <RootProvider>
-          <div className="min-h-screen flex-1">
+          <div className="min-h-screen flex-1 overflow-x-hidden">
             <Header />
-            <main className="max-w-[1250px] m-auto">
-              <div className="border-l border-r border-dashed mt-mobile-header md:mt-desktop-header px-5">
-                {children}
-              </div>
+            <main className="pt-mobile-header md:pt-desktop-header">
+              {children}
             </main>
             <Footer />
           </div>

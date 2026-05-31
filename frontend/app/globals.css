@@ -53,41 +53,41 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.56 0.25 302);
-  --primary-foreground: oklch(0.98 0.01 308);
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.58 0.22 27);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.83 0.11 306);
-  --chart-2: oklch(0.72 0.18 306);
-  --chart-3: oklch(0.63 0.23 304);
-  --chart-4: oklch(0.56 0.25 302);
-  --chart-5: oklch(0.50 0.24 302);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.56 0.25 302);
-  --sidebar-primary-foreground: oklch(0.98 0.01 308);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --background: #fff8f5;
+  --foreground: #221a16;
+  --card: #ffffff;
+  --card-foreground: #221a16;
+  --popover: #ffffff;
+  --popover-foreground: #221a16;
+  --primary: #904816;
+  --primary-foreground: #ffffff;
+  --secondary: #fec9ad;
+  --secondary-foreground: #623e29;
+  --muted: #fbebe3;
+  --muted-foreground: #6e5c52;
+  --accent: #ffdbc9;
+  --accent-foreground: #331200;
+  --destructive: #ba1a1a;
+  --border: #ead6cc;
+  --input: #fff1ea;
+  --ring: #af602d;
+  --chart-1: #904816;
+  --chart-2: #7d553f;
+  --chart-3: #5d6000;
+  --chart-4: #ffb68d;
+  --chart-5: #dac2b6;
+  --radius: 1rem;
+  --sidebar: #fff1ea;
+  --sidebar-foreground: #221a16;
+  --sidebar-primary: #904816;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #fec9ad;
+  --sidebar-accent-foreground: #623e29;
+  --sidebar-border: #ead6cc;
+  --sidebar-ring: #af602d;
 
   /* custom variables */
-  --desktop-header-height: 70px;
+  --desktop-header-height: 72px;
   --mobile-header-height: 64px;
   --desktop-sticky-top: 90px;
 }
@@ -133,5 +133,30 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: "Plus Jakarta Sans", var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    letter-spacing: 0;
+  }
+}
+
+@layer utilities {
+  .serene-shell {
+    @apply mx-auto w-full max-w-[1280px] px-5 md:px-10 xl:px-16;
+  }
+
+  .serene-card {
+    @apply border border-white/70 bg-white/78 shadow-[0_18px_55px_rgba(129,76,48,0.12)] backdrop-blur-xl;
+  }
+
+  .serene-panel {
+    @apply border border-border/70 bg-card shadow-[0_14px_38px_rgba(129,76,48,0.08)];
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
