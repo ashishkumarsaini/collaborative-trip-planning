@@ -1,7 +1,7 @@
 'use client';
 
 import type { ReactNode } from "react";
-import { Calendar, Euro, Share2, Users } from "lucide-react";
+import { Calendar, Share2, Users } from "lucide-react";
 import { Heading, HeadingLevel, HeadingSize, Text, TextSize } from "@/components/typography";
 import { Button } from "@/components/ui/button";
 import { requestTrip } from "@/lib/services";
@@ -35,9 +35,8 @@ export const TripDetails = ({ trip }: { trip: Trip }) => {
             {trip.description || "A shared itinerary built for meaningful group travel."}
           </Text>
           <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
-            <Metric icon={<Euro />} label="Budget" value="2450" suffix="/ person" />
-            <Metric icon={<Calendar />} label="Duration" value={`${trip.numberOfDays || 8} Days`} suffix="/ 7 Nights" />
-            <Metric icon={<Users />} label="Participants" value={`${trip.travellers?.length || 1} / 10`} suffix="Joined" />
+            {trip.numberOfDays && <Metric icon={<Calendar />} label="Duration" value={`${trip.numberOfDays} Days`} suffix="/ 7 Nights" />}
+            {trip.travellers?.length && <Metric icon={<Users />} label="Participants" value={`${trip.travellers?.length}`} suffix="Joined" />}
           </div>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row lg:shrink-0">

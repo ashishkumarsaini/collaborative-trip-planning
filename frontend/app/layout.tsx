@@ -10,6 +10,11 @@ import { AppDrawers } from "@/components/app-drawers";
 export const metadata: Metadata = {
   title: "WanderScape",
   description: "Collaborative trip planning for effortless exploration.",
+  icons: {
+    icon: "/icon.svg",
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
